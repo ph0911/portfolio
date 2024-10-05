@@ -11,11 +11,11 @@ const dataTimeline = [
   {
     title: "2024",
     content: (
-      <div className='prose'>
-        <p className="text-neutral-800 dark:text-neutral-200">
+      <div className='prose dark:prose-invert text-md '>
+        <p>
           B.Eng. Abschluss in Medientechnik (HTWK Leipzig). Spezialisierung: Frontend-Entwicklung und UX Design.
         </p>
-        <p className="text-neutral-800 dark:text-neutral-200">
+        <p>
           Vertiefung: React, Next.js, Angular. Fokus auf responsive Webprojekte.
         </p>
       </div>
@@ -24,11 +24,11 @@ const dataTimeline = [
   {
     title: "2023",
     content: (
-      <div className='prose'>
-        <p className="text-neutral-800 dark:text-neutral-200">
+      <div className='prose dark:prose-invert text-md '>
+        <p>
           Praxissemester und Nebenjob: Webentwickler und Grafikdesigner in der Eventtechnologie.
         </p>
-        <p className="text-neutral-800 dark:text-neutral-200">
+        <p >
           Umsetzung: 4 responsive Websites, Corporate Design mit Style Guide.
         </p>
       </div>
@@ -37,11 +37,11 @@ const dataTimeline = [
   {
     title: "2022",
     content: (
-      <div className='prose'>
-        <p className="text-neutral-800 dark:text-neutral-200">
+      <div className='prose dark:prose-invert text-md '>
+        <p >
           Fortgeschrittene Webentwicklung. Hybrid-App-Entwicklung mit Ionic/Angular.
         </p>
-        <p className="text-neutral-800 dark:text-neutral-200">
+        <p>
           Vertiefung UI/UX-Design. Erweiterung Adobe Creative Suite Skills.
         </p>
       </div>
@@ -50,11 +50,11 @@ const dataTimeline = [
   {
     title: "2021",
     content: (
-      <div className='prose'>
-        <p className="text-neutral-800 dark:text-neutral-200">
+      <div className='prose dark:prose-invert text-md '>
+        <p>
           Studentische Hilfskraft: Pressestelle HTWK Leipzig. Social-Media und Event-Design.
         </p>
-        <p className="text-neutral-800 dark:text-neutral-200">
+        <p >
           Vertiefung JavaScript, Einstieg Frontend-Frameworks und responsive Webdesign.
         </p>
       </div>
@@ -63,11 +63,11 @@ const dataTimeline = [
   {
     title: "2020",
     content: (
-      <div className='prose'>
-        <p className="text-neutral-800 dark:text-neutral-200">
+      <div className='prose dark:prose-invert text-md '>
+        <p>
           Beginn Medientechnik-Studium (HTWK Leipzig). Fokus: Grafikdesign, Webtechnologien.
         </p>
-        <p className="text-neutral-800 dark:text-neutral-200">
+        <p>
           Grundlagen: HTML5, CSS3, JavaScript. Einführung CMS und digitales Design.
         </p>
       </div>

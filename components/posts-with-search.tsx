@@ -21,10 +21,10 @@ export default function PostsWithSearch({ posts }: { posts: PostMetadata[] }) {
 
   return (
     <div>
-      <div className='mb-12 flex items-center gap-3'>
+      <div className='mb-8 flex items-center gap-3'>
         <Input
           type='text'
-          placeholder='Search posts...'
+          placeholder='Suche nach Beitrag...'
           className='h-9 w-full sm:w-1/2'
           value={query}
           onChange={e => setQuery(e.target.value)}
@@ -34,7 +34,7 @@ export default function PostsWithSearch({ posts }: { posts: PostMetadata[] }) {
             size='sm'
             variant='secondary'
             onClick={resetFilter}
-            className='h-8 px-2 lg:px-3'
+            className='h-8 px-2 lg:px-3 rounded-full'
           >
             Reset
             <Cross2Icon className='ml-2 h-4 w-4' />
