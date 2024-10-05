@@ -1,6 +1,10 @@
 import  ThemeToggle  from '@/components/theme-toggle'
+import { IconLayoutSidebarLeftExpand } from '@tabler/icons-react';
+
 import Link from 'next/link';
 import { JSX, SVGProps } from 'react'
+
+
 
 const logo = {
   name: 'Logo',
@@ -32,18 +36,25 @@ export default function Header() {
   return (
     <header className="fixed inset-x-0 top-0 z-50 bg-background/75 py-6 backdrop-blur-sm">
       <nav className="container flex max-w-3xl items-center justify-between">
-        <div>
-          <a key={logo.name}
-                href={logo.href}
-                target='_blank'
-                rel='noreferrer noopener'
-                className='text-foreground'>
+        <div className="md:hidden">
+          <button className="text-foreground" aria-label="Toggle navigation">
+            <IconLayoutSidebarLeftExpand className="size-5" />
+          </button>
+        </div>
+        <div className="hidden md:block">
+          <a key={logo.name} href={logo.href} className='text-foreground'>
             <span className='sr-only'>{logo.name}</span>
             <logo.icon aria-hidden='true' className='h-8 w-8' />
           </a>
         </div>
-        <ul className="flex items-center gap-6 text-sm font-light text-muted-foreground sm:gap-10">
-        <li className="transition-colors hover:text-foreground">
+        <div className="md:hidden absolute left-1/2 transform -translate-x-1/2">
+          <a key={logo.name} href={logo.href} className='text-foreground'>
+            <span className='sr-only'>{logo.name}</span>
+            <logo.icon aria-hidden='true' className='h-8 w-8' />
+          </a>
+        </div>
+        <ul className="hidden md:flex items-center gap-6 text-sm font-light text-muted-foreground sm:gap-10">
+          <li className="transition-colors hover:text-foreground">
             <Link href="/projects">Projekte</Link>
           </li>
           <li className="transition-colors hover:text-foreground">
@@ -54,9 +65,9 @@ export default function Header() {
           </li>
         </ul>
         <div>
-          <ThemeToggle /> {/* Light/Dark Mode Umschalter */}
+          <ThemeToggle />
         </div>
       </nav>
     </header>
-  );
+  )
 }
