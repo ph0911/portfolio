@@ -4,7 +4,7 @@ export default function Contact() {
   return (
     <section className='pb-24 pt-40'>
       <div className='container max-w-3xl'>
-        <h2 className='title'>Kontaktiere mich</h2>
+        <h2 className='title'>Kontakt</h2>
 
         <ContactForm />
       </div>
