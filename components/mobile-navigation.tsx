@@ -32,7 +32,7 @@ const MobileNavigation: React.FC<MobileNavigationProps> = ({ open, setOpen }) =>
         >
           <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
           <nav className="flex flex-col h-full justify-end items-center pb-7 space-y-10">
-            <Link href="/contact" className="-rotate-90 text-sm font-light text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 transition-colors">Kontakt</Link>
+            {/* <Link href="/contact" className="-rotate-90 text-sm font-light text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 transition-colors">Kontakt</Link> */}
             <Link href="/posts" className="-rotate-90 text-sm font-light text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 transition-colors">Blog</Link>
             <Link href="/projects" className="-rotate-90 text-sm font-light text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 transition-colors">Projekte</Link>
           </nav>

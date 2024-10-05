@@ -60,9 +60,9 @@ export default function Header() {
           <li className="transition-colors hover:text-foreground">
             <Link href="/posts">Blog</Link>
           </li>
-          <li className="transition-colors hover:text-foreground">
+          {/* <li className="transition-colors hover:text-foreground">
             <Link href="/contact">Kontakt</Link>
-          </li>
+          </li> */}
         </ul>
         <div>
           <ThemeToggle />
