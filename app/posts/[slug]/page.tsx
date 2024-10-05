@@ -2,7 +2,7 @@
 import MDXContent from '@/components/mdx-content'
 import { getPostBySlug, getPosts } from '@/lib/posts'
 import { formatDate } from '@/lib/utils'
-import { ArrowLeftIcon } from '@radix-ui/react-icons'
+import { IconChevronLeft } from '@tabler/icons-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
@@ -33,12 +33,12 @@ export default async function Post({ params }: { params: { slug: string } }) {
           href='/posts'
           className='mb-8 inline-flex items-center gap-2 text-sm font-light text-muted-foreground transition-colors hover:text-foreground'
         >
-          <ArrowLeftIcon className='h-5 w-5' />
-          <span>Back to posts</span>
+          <IconChevronLeft className='h-5 w-5' />
+          <span>Blog</span>
         </Link>
 
         {image && (
-          <div className='relative mb-6 h-96 w-full overflow-hidden rounded-lg'>
+          <div className='relative mb-6 h-96 w-full overflow-hidden rounded-3xl'>
             <Image
               src={image}
               alt={title || ''}

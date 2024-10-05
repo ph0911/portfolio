@@ -87,6 +87,10 @@
     @apply font-serif text-3xl font-bold underline decoration-border/75 decoration-2 underline-offset-8;
   }
 
+  .subtitle {
+    @apply font-sans md:text-xl text-base font-light text-muted-foreground;
+  }
+
   .prose pre {
     @apply overflow-x-auto rounded-lg bg-accent px-5 py-4 text-sm;
   }

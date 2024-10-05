@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { ProjectMetadata } from '@/lib/projects'
 import { formatDate } from '@/lib/utils'
 
+
 export default function Projects({
   projects
 }: {
