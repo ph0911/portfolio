@@ -3,6 +3,7 @@ import { IconLayoutSidebarLeftExpand } from '@tabler/icons-react';
 
 import Link from 'next/link';
 import { JSX, SVGProps } from 'react'
+import { Button } from '@/components/ui/button';
 
 
 
@@ -37,9 +38,10 @@ export default function Header() {
     <header className="fixed inset-x-0 top-0 z-50 bg-background/75 py-6 backdrop-blur-sm">
       <nav className="container flex max-w-3xl items-center justify-between">
         <div className="md:hidden">
-          <button className="text-foreground" aria-label="Toggle navigation">
+          <Button size='sm'
+      variant='ghost' className="text-foreground" aria-label="Toggle navigation">
             <IconLayoutSidebarLeftExpand className="size-5" />
-          </button>
+          </Button>
         </div>
         <div className="hidden md:block">
           <a key={logo.name} href={logo.href} className='text-foreground'>
@@ -60,9 +62,9 @@ export default function Header() {
           <li className="transition-colors hover:text-foreground">
             <Link href="/posts">Blog</Link>
           </li>
-          {/* <li className="transition-colors hover:text-foreground">
-            <Link href="/contact">Kontakt</Link>
-          </li> */}
+          <li className="transition-colors hover:text-foreground">
+            <Link href="mailto:info@pascalheue.dev?subject=Kontakt%20Anfrage%20Website&body=Hey%2C%20">Kontakt</Link>
+          </li>
         </ul>
         <div>
           <ThemeToggle />

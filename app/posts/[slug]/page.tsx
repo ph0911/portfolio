@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import MDXContent from '@/components/mdx-content'
 import { getPostBySlug, getPosts } from '@/lib/posts'
 import { formatDate } from '@/lib/utils'
@@ -7,6 +6,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import React from 'react'
+import { TracingBeam } from '@/components/ui/tracing-beam'
 
 export async function generateStaticParams() {
   const posts = await getPosts()
@@ -36,28 +36,30 @@ export default async function Post({ params }: { params: { slug: string } }) {
           <IconChevronLeft className='h-5 w-5' />
           <span>Blog</span>
         </Link>
-
         {image && (
-          <div className='relative mb-6 h-96 w-full overflow-hidden rounded-3xl'>
-            <Image
-              src={image}
-              alt={title || ''}
-              className='object-cover'
-              fill
-            />
-          </div>
-        )}
+            <div className='relative mb-6 h-96 w-full overflow-hidden rounded-3xl'>
+              <Image
+                src={image}
+                alt={title || ''}
+                className='object-cover'
+                fill
+              />
+            </div>
+          )}
 
-        <header>
-          <h1 className='title'>{title}</h1>
-          <p className='mt-3 text-xs text-muted-foreground'>
-            {author} / {formatDate(publishedAt ?? '')}
-          </p>
-        </header>
+        <TracingBeam >
+          
+          <header>
+            <h1 className='title'>{title}</h1>
+            <p className='mt-3 text-xs text-muted-foreground'>
+              {author} / {formatDate(publishedAt ?? '')}
+            </p>
+          </header>
 
-        <main className='prose mt-16 dark:prose-invert'>
-          <MDXContent source={content} />
-        </main>
+          <main className='prose mt-16 dark:prose-invert'>
+            <MDXContent source={content} />
+          </main>
+        </TracingBeam>
 
       </div>
     </section>

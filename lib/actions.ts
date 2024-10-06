@@ -21,14 +21,14 @@ export async function sendEmail(data: ContactFormInputs) {
     const { data, error } = await resend.emails.send({
       from: 'Acme <onboarding@resend.dev>',
       to: [email],
-      // cc: ['hello@hamedbahram.io'],
-      subject: 'Contact form submission',
+      cc: ['info@pascalheue.dev'],
+      subject: 'Kontaktformular-Nachricht',
       text: `Name: ${name}\nEmail: ${email}\nMessage: ${message}`,
       react: ContactFormEmail({ name, email, message })
     })
 
     if (!data || error) {
-      throw new Error('Failed to send email')
+      throw new Error('E-Mail konnte nicht gesendet werden')
     }
 
     return { success: true }
@@ -52,7 +52,7 @@ export async function subscribe(data: NewsletterFormInputs) {
     })
 
     if (!data || error) {
-      throw new Error('Failed to subscribe')
+      throw new Error('Fehler beim Abonnieren')
     }
 
     // TODO: Send a welcome email
