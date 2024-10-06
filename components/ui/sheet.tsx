@@ -6,7 +6,7 @@ import * as SheetPrimitive from "@radix-ui/react-dialog"
 import { cva, type VariantProps } from "class-variance-authority"
 
 import { cn } from "@/lib/utils"
-import { IconX } from "@tabler/icons-react"
+import { IconLayoutSidebarLeftCollapse } from "@tabler/icons-react"
 
 const Sheet = SheetPrimitive.Root
 
@@ -65,8 +65,8 @@ const SheetContent = React.forwardRef<
       className={cn(sheetVariants({ side }), className)}
       {...props}
     >
-      <SheetPrimitive.Close className="absolute right-4 top-6 rounded-sm opacity-70 transition-opacity hover:opacity-100 disabled:pointer-events-none data-[state=open]:bg-secondary">
-        <IconX className="size-5" />
+      <SheetPrimitive.Close className="absolute right-3 top-7 rounded-sm opacity-70 transition-opacity hover:opacity-100 disabled:pointer-events-none data-[state=open]:bg-secondary">
+        <IconLayoutSidebarLeftCollapse className="size-6" />
         <span className="sr-only">Close</span>
       </SheetPrimitive.Close>
       {children}

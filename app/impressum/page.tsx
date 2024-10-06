@@ -10,8 +10,7 @@ export default async function Impressum() {
           04205 Leipzig</p>
 
         <h2 className='subtitle mt-8 mb-2'>Kontakt</h2>
-        <p>Telefon: &#91;Telefonnummer&#93;<br />
-          E-Mail: pascal.heue@gmail.com</p>
+        <p>E-Mail: info@pascalheue.dev</p>
 
         <h2 className='subtitle mt-8 mb-2'>Redaktionell verantwortlich</h2>
         <p>Pascal Heue<br />

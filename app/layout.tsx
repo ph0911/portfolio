@@ -43,7 +43,7 @@ const links = [
     icon: (
       <IconMail className="h-full w-full text-neutral-500 dark:text-neutral-300" />
     ),
-    href: "mailto:pascalheue@gmail.com?subject=Kontakt%20Anfrage%20Website&body=Hey%2C%20",
+    href: "mailto:info@pascalheue.dev?subject=Kontakt%20Anfrage%20Website&body=Hey%2C%20",
   },
   {
     title: "LinkedIn",
@@ -86,7 +86,7 @@ export default function RootLayout({
         <Providers>
           <Header />
           <MobileNavigationWrapper>
-            <main className='grow'>{children}</main>
+            <main className='grow overflow-hidden'>{children}</main>
           </MobileNavigationWrapper>
           <FloatingDock items={links} desktopClassName='fixed inset-x-0 bottom-12 mx-auto w-fit' mobileClassName='fixed right-7 bottom-7' />
           <Footer />

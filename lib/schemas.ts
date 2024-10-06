@@ -3,13 +3,13 @@ import { z } from 'zod'
 export const ContactFormSchema = z.object({
   name: z
     .string()
-    .min(1, { message: 'Name is required.' })
-    .min(2, { message: 'Must be at least 2 characters.' }),
+    .min(1, { message: 'Name wird benötigt.' })
+    .min(2, { message: 'Muss mind. 2 Zeichen haben.' }),
   email: z
     .string()
-    .min(1, { message: 'Email is required.' })
-    .email('Invalid email.'),
-  message: z.string().min(1, { message: 'Message is required.' })
+    .min(1, { message: 'Email wird benötigt.' })
+    .email('Ungültige Email.'),
+  message: z.string().min(1, { message: 'Nachricht wird benötigt.' })
 })
 
 export const NewsletterFormSchema = z.object({
