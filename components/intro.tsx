@@ -13,7 +13,7 @@ export default function Intro() {
 
         <p className='mt-3 font-light text-muted-foreground'>
         
-        Ich bin ein Designer mit Entwickler-DNA aus Deutschland. Meine Mission ist es, nicht nur Webseiten zu erschaffen, sondern Erlebnisse zu kreieren, die in Erinnerung bleiben.
+        Ich bin ein Designer mit Entwickler-DNA. Ob visuelles Branding oder benutzerfreundliche Webanwendungen – ich bringe Kreativität und Technologie zusammen, um maßgeschneiderte Lösungen zu schaffen.
         </p>
       </div>
       <div className='relative'>

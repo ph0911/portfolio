@@ -83,6 +83,7 @@ const config: Config = {
   plugins: [
     require('tailwindcss-animate'),
     require('@tailwindcss/typography'),
+    require('@tailwindcss/line-clamp'),
     addVariablesForColors,
     function ({ matchUtilities, theme }: any) {
       matchUtilities(

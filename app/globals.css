@@ -96,7 +96,7 @@
   }
 
   .prose code {
-    @apply rounded-lg px-1 py-0.5;
+    @apply rounded-lg px-1 py-0.5 w-full;
   }
 
   .prose pre code {
