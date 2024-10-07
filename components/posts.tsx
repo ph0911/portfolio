@@ -17,7 +17,7 @@ export default function Posts({ posts }: { posts: PostMetadata[] }) {
               <Image
                 src={post.image || '/default-avatar.png'} // austauschen
                 alt={`Avatar for ${post.title}`}
-                className='w-full h-full object-cover rounded-2xl '
+                className='w-full h-full object-cover rounded-2xl aspect-[1/1]'
                 width={60}
                 height={60}
               />

@@ -30,7 +30,7 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start 10%", "end 50%"],
+    offset: ["start 30%", "end 50%"],
   });
 
   // Verwende Framer Motion für die Scroll-Animationen
@@ -48,7 +48,7 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
         {data.map((item, index) => (
           <div key={index} className="flex justify-start md:pt-10 md:gap-8">
             <div className="sticky flex flex-col md:flex-row z-30 items-center top-32 self-start max-w-xs lg:max-w-sm md:w-full">
-              <div className="h-8 absolute left-2 md:left-2 w-8 rounded-full bg-neutral-100 dark:bg-neutral-900 flex items-center justify-center">
+              <div className="h-8 absolute left-0  w-8 rounded-full bg-neutral-100 dark:bg-neutral-900 flex items-center justify-center">
                 <div className="h-3 w-3 rounded-full bg-neutral-300 dark:bg-neutral-700" />
               </div>
               <h3 className="subtitle hidden md:block  md:pl-12 md:text-2xl font-medium text-neutral-500 dark:text-neutral-500">
@@ -70,7 +70,7 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
           style={{
             height: `${height}px`,
           }}
-          className="absolute md:left-6 left-6 top-0 overflow-hidden w-[2px] bg-[linear-gradient(to_bottom,var(--tw-gradient-stops))] from-transparent from-[0%] via-neutral-300 dark:via-neutral-600 to-transparent to-[99%] [mask-image:linear-gradient(to_bottom,transparent_0%,black_10%,black_90%,transparent_100%)]"
+          className="absolute  left-4 top-0 overflow-hidden w-[2px] bg-[linear-gradient(to_bottom,var(--tw-gradient-stops))] from-transparent from-[0%] via-neutral-300 dark:via-neutral-600 to-transparent to-[99%] [mask-image:linear-gradient(to_bottom,transparent_0%,black_10%,black_90%,transparent_100%)]"
         >
           <motion.div
             style={{

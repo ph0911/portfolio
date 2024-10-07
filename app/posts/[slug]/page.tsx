@@ -41,7 +41,7 @@ export default async function Post({ params }: { params: { slug: string } }) {
               <Image
                 src={image}
                 alt={title || ''}
-                className='object-cover'
+                className='object-cover max-w-3xl'
                 fill
               />
             </div>
@@ -56,7 +56,7 @@ export default async function Post({ params }: { params: { slug: string } }) {
             </p>
           </header>
 
-          <main className='prose mt-16 dark:prose-invert'>
+          <main className='prose mt-16 max-w-full dark:prose-invert'>
             <MDXContent source={content} />
           </main>
         </TracingBeam>

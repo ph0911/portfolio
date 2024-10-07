@@ -1,0 +1,171 @@
+---
+title: 'GitHub Workflow'
+summary: Ein praktischer Guide zur Verwendung von Git und GitHub, um sauber und effizient mit Branches zu arbeiten. Inklusive nützlicher Befehle und Best Practices.
+image: /images/posts/github-workflow.png
+author: Pascal Heue
+publishedAt: '2024-10-07'
+---
+
+Git und GitHub sind unverzichtbare Tools in der modernen Softwareentwicklung. Sie ermöglichen es, Änderungen am Code sauber zu versionieren und in Teams parallel zu arbeiten. In diesem Beitrag schauen wir uns die grundlegenden Schritte an, wie du mit Git arbeiten kannst, und welche Befehle dir helfen, effizienter zu arbeiten.
+
+## Grundbegriffe: Was bedeuten "Stagen", "Committen" und Co.?
+
+Bevor wir in die Praxis eintauchen, sollten wir kurz einige zentrale Begriffe erklären:
+
+- **Staging**: Dies ist der Vorgang, bei dem du deine Änderungen für das nächste Commit vorbereitest. Man könnte sagen, dass du eine Liste mit Änderungen erstellst, die in den nächsten Versionsschritt übernommen werden.
+- **Commit**: Ein Commit speichert deine Änderungen dauerhaft im Repository. Es ist wie ein Schnappschuss deines Codes zu einem bestimmten Zeitpunkt.
+- **Branch**: Ein Branch ist ein separater Arbeitsbereich. Du kannst an einem neuen Feature arbeiten, ohne den Hauptcode zu beeinflussen.
+- **Merge**: Wenn du deine Änderungen in einen anderen Branch (z. B. den Haupt-Branch) integrieren willst, führst du einen Merge durch.
+
+## 1. Repository klonen
+
+Das Klonen eines Repositories bedeutet, dass du eine lokale Kopie eines bestehenden GitHub-Projekts auf deinem Rechner erstellst. Dies ist besonders nützlich, wenn du an einem bestehenden Projekt mitarbeiten möchtest:
+
+```bash
+git clone <https://github.com/deinbenutzername/dein-repo.git>
+
+```
+
+## 2. Neuen Branch erstellen und wechseln
+
+Branches sind unerlässlich, wenn du parallel an mehreren Features arbeiten willst. Sie erlauben dir, den Haupt-Branch stabil zu halten, während du neue Funktionen entwickelst. Das Erstellen und Wechseln in einen neuen Branch geht so:
+
+```bash
+git checkout -b feature/branchname
+
+```
+
+Dies ist besonders nützlich, wenn du an einem neuen Feature arbeitest, das noch nicht ausgereift ist und du es getrennt vom Haupt-Branch entwickeln willst.
+
+## 3. Status überprüfen
+
+Um den Überblick zu behalten, welche Dateien du bereits geändert hast, solltest du regelmäßig `git status` verwenden. So siehst du, was gestaged ist und welche Änderungen noch nicht im nächsten Commit berücksichtigt werden:
+
+```bash
+git status
+
+```
+
+Der Befehl ist hilfreich, um keine Datei zu vergessen, bevor du deine Änderungen committen möchtest.
+
+## 4. Änderungen stagen
+
+Bevor du Änderungen committen kannst, müssen diese gestaged werden. Dies bedeutet, dass du dem System sagst, welche Änderungen gespeichert werden sollen:
+
+- Einzelne Datei stagen:
+    
+    ```bash
+    git add dateiname
+    
+    ```
+    
+- Alle geänderten Dateien stagen:
+    
+    ```bash
+    git add .
+    
+    ```
+    
+
+Warum ist das wichtig? Staging erlaubt es dir, nur bestimmte Änderungen zu committen, während andere noch in Arbeit bleiben.
+
+## 5. Änderungen committen
+
+Der Commit ist der zentrale Schritt in Git. Hier werden deine gestagten Änderungen endgültig gespeichert. Achte darauf, dass die Commit-Nachricht klar und präzise ist, damit du später den Zweck der Änderungen leicht nachvollziehen kannst:
+
+```bash
+git commit -m "Beschreibung der Änderungen"
+
+```
+
+Es ist eine gute Praxis, kleine, häufige Commits zu machen, um die Historie sauber und nachvollziehbar zu halten.
+
+## 6. Branch zu GitHub pushen
+
+Sobald du mit deinen Änderungen zufrieden bist, kannst du sie auf GitHub hochladen. Dies macht sie für andere sichtbar und ermöglicht dir, sie in einer Vorschauumgebung zu testen:
+
+```bash
+git push origin feature/branchname
+
+```
+
+Dies ist besonders wichtig, wenn du in einem Team arbeitest oder deine Änderungen online in einer Preview-Umgebung prüfen möchtest.
+
+## 7. Branch wechseln
+
+Wenn du zum Haupt-Branch zurückkehren möchtest, um vielleicht andere Aufgaben zu übernehmen oder ein neues Feature zu entwickeln, wechselst du einfach mit diesem Befehl zurück:
+
+```bash
+git checkout main
+
+```
+
+## 8. Main-Branch updaten
+
+Es ist eine gute Angewohnheit, vor dem Erstellen neuer Branches sicherzustellen, dass der Main-Branch auf dem neuesten Stand ist. Dies vermeidet Konflikte und sorgt dafür, dass du mit den aktuellsten Änderungen arbeitest:
+
+```bash
+git pull origin main
+
+```
+
+## 9. Feature-Branch mit Main zusammenführen (Merge)
+
+Hast du deine Arbeit im Feature-Branch abgeschlossen, kannst du diese in den Haupt-Branch integrieren. Dies ist der Moment, in dem deine Arbeit Teil des Hauptprojekts wird:
+
+1. Wechsel in den Main-Branch:
+    
+    ```bash
+    git checkout main
+    
+    ```
+    
+2. Führe die Änderungen zusammen:
+    
+    ```bash
+    git merge feature/branchname
+    
+    ```
+    
+3. Push die Änderungen in den Main-Branch:
+    
+    ```bash
+    git push origin main
+    
+    ```
+    
+
+Merges sind ein kritischer Punkt im Entwicklungsprozess, da hier mehrere Arbeitsstränge vereint werden. Achte darauf, vorher Konflikte zu lösen, falls sie auftreten.
+
+## 10. Branch löschen
+
+Nach dem Merge kannst du den nicht mehr benötigten Branch löschen. Dies sorgt dafür, dass deine Branches übersichtlich bleiben:
+
+- Lokal löschen:
+    
+    ```bash
+    git branch -d feature/branchname
+    
+    ```
+    
+- Auf GitHub löschen:
+    
+    ```bash
+    git push origin --delete feature/branchname
+    
+    ```
+    
+
+### Git in VS Code nutzen
+
+Visual Studio Code (VS Code) bietet eine benutzerfreundliche Oberfläche für viele dieser Schritte. Hier eine kurze Übersicht, wie du Git-Funktionen in VS Code nutzen kannst:
+
+- **Branch wechseln oder erstellen**: Unten links kannst du schnell Branches wechseln oder neue erstellen.
+- **Staging und Committen**: Im Quellcodeverwaltungs-Panel (Git-Symbol) kannst du Dateien stagen und committen.
+- **Push und Pull**: Nutze die Schaltflächen in der unteren Leiste, um Änderungen hoch- oder herunterzuladen.
+
+---
+
+Mit diesem Workflow hast du eine klare Struktur, um effizient an Projekten zu arbeiten und gleichzeitig den Überblick über deine Änderungen zu behalten. Wenn du regelmäßig Branches und Merges verwendest, kannst du sicherstellen, dass dein Projekt stets stabil und sauber bleibt.
+
+---
