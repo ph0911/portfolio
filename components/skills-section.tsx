@@ -55,8 +55,8 @@ const webDevSkills = [
     content: "SQL ist eine Sprache zur Verwaltung und Abfrage von Datenbanken."
   },
   {
-    title: "SQL",
-    content: "SQL ist eine Sprache zur Verwaltung und Abfrage von Datenbanken."
+    title: "WordPress",
+    content: "WordPress ist ein Content-Management-System (CMS), das zur Erstellung und Verwaltung von Websites verwendet wird."
   }
 ]
 

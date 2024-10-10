@@ -44,11 +44,11 @@ export const BentoGridItem = ({
         className="object-cover object-center"
       />
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-white/20 to-white/40 dark:via-black/30 dark:to-black/60 " />
-      <div className="absolute inset-0 backdrop-blur-[2px] bg-gradient-to-b from-transparent to-white/30 dark:to-black/30" />
+      <div className="absolute inset-0 backdrop-blur-[2px] bg-gradient-to-b from-transparent to-white/30 dark:to-black/40" />
       <div className="absolute inset-0 p-4 flex flex-col justify-end">
         <div className="group-hover/bento:translate-x-2 transition duration-200">
           <h3 className="font-sans font-bold text-gray-800 dark:text-white text-lg sm:text-xl mb-1 sm:mb-2">{title}</h3>
-          <p className="font-sans font-normal line-clamp-2 text-gray-600 dark:text-gray-300 text-xs sm:text-sm">{description}</p>
+          <p className="font-sans font-normal line-clamp-2 text-gray-800 dark:text-gray-300 text-xs sm:text-sm">{description}</p>
         </div>
       </div>
     </div>
