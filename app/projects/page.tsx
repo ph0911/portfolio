@@ -34,7 +34,7 @@ export default async function ProjectsPage() {
                   <Image
                     src={project.image || '/default-avatar.png'}
                     alt={`Avatar for ${project.title}`}
-                    className='w-full h-full object-cover rounded-2xl'
+                    className='w-full h-full object-cover rounded-2xl aspect-[1/1]'
                     width={60}
                     height={60}
                   />
