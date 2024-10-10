@@ -5,6 +5,9 @@ import React from 'react'
 import RecentPosts from '@/components/recent-posts'
 import RecentProjects from '@/components/recent-projects'
 import { Timeline } from '@/components/ui/timeline'
+import SkillsSection from '@/components/skills-section'
+
+
 
 
 const dataTimeline = [
@@ -77,16 +80,18 @@ const dataTimeline = [
 
 
 export default function Home() {
- 
+
   return (
     <section className='py-24'>
       <div className='container max-w-3xl'>
         <Intro />
+        <SkillsSection />
         <RecentPosts />
+
         <Timeline data={dataTimeline} />
         <RecentProjects />
-        
-        
+
+
       </div>
     </section>
   )
