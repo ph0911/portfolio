@@ -18,6 +18,7 @@ export default async function RecentProjects({ showAllProjectsLink = true }) {
               description={project.summary}
               image={project.image || '/placeholder-image.jpg'}
               className={index === 0 || index === 3 ? "sm:col-span-2" : ""}
+              tags={project.tags}
             />
           ))}
         </BentoGrid>

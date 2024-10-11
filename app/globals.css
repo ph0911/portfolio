@@ -135,3 +135,15 @@
     left: 0;
   }
 }
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+  /* Für Webkit-basierte Browser */
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  /* Für Internet Explorer und Edge */
+  scrollbar-width: none;
+  /* Für Firefox */
+}
