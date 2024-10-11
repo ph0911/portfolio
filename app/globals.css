@@ -108,3 +108,30 @@
     @apply font-medium;
   }
 }
+
+.reading-progress-container {
+  position: relative;
+  height: 100%;
+}
+
+.reading-progress-line {
+  left: calc(50% - 24rem);
+}
+
+.reading-progress-circle {
+  left: calc(50% - 24rem - 3px);
+  top: 20;
+}
+
+.reading-progress-fade {
+  left: calc(50% - 24rem - 1rem);
+}
+
+@media (max-width: 768px) {
+
+  .reading-progress-line,
+  .reading-progress-circle,
+  .reading-progress-fade {
+    left: 0;
+  }
+}

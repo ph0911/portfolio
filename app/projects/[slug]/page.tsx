@@ -6,7 +6,7 @@ import MDXContent from '@/components/mdx-content'
 import { IconChevronLeft } from '@tabler/icons-react'
 import { getProjectBySlug, getProjects } from '@/lib/projects'
 import { notFound } from 'next/navigation'
-import { TracingBeam } from '@/components/ui/tracing-beam'
+import ReadingProgress from '@/components/ui/reading-progress'
 
 export async function generateStaticParams() {
   const projects = await getProjects()
@@ -40,7 +40,7 @@ export default async function Project({
           <IconChevronLeft className='h-5 w-5' />
           <span>Projekte</span>
         </Link>
-
+        <ReadingProgress />
         {image && (
           <div className='relative mb-6 h-96 w-full overflow-hidden rounded-3xl'>
             <Image
@@ -51,7 +51,7 @@ export default async function Project({
             />
           </div>
         )}
-        <TracingBeam >
+
         <header>
           <h1 className='title'>{title}</h1>
           <p className='mt-3 text-xs text-muted-foreground'>
@@ -62,8 +62,7 @@ export default async function Project({
         <main className='prose mt-16 max-w-full dark:prose-invert'>
           <MDXContent source={content} />
         </main>
-        </TracingBeam>
       </div>
-    </section>
+    </section >
   )
 }
