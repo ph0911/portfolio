@@ -1,6 +1,8 @@
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import Image from "next/image";
+import { Key } from "react";
+import { Badge } from "@/components/ui/badge";
 
 export const BentoGrid = ({
   className,
@@ -27,12 +29,14 @@ export const BentoGridItem = ({
   description,
   image,
   link,
+  tags
 }: {
   className?: string;
   title?: string | React.ReactNode;
   description?: string | React.ReactNode;
   image: string;
   link?: string;
+  tags?: string[];
 }) => {
   const Content = (
     <div className="relative w-full h-[10rem] sm:h-80  md:h-80 overflow-hidden rounded-3xl group/bento transition duration-200">
@@ -49,6 +53,13 @@ export const BentoGridItem = ({
         <div className="group-hover/bento:translate-x-2 transition duration-200">
           <h3 className="font-sans font-bold text-gray-800 dark:text-white text-lg sm:text-xl mb-1 sm:mb-2">{title}</h3>
           <p className="font-sans font-normal line-clamp-2 text-gray-800 dark:text-gray-300 text-xs sm:text-sm">{description}</p>
+          <div className="mt-3 flex gap-1 overflow-x-auto scrollbar-hide">
+            {tags?.map((tag: string, index: Key | null | undefined) => (
+              <Badge key={index} variant="default" className="text-xs whitespace-nowrap rounded-full">
+                {tag}
+              </Badge>
+            ))}
+          </div>
         </div>
       </div>
     </div>
