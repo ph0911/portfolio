@@ -1,3 +1,4 @@
+
 import type { Metadata } from 'next'
 import { Inter, Playfair_Display } from 'next/font/google'
 import { cn } from '@/lib/utils'
@@ -14,6 +15,7 @@ import {
   IconHome,
   IconMail,
 } from "@tabler/icons-react";
+
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-sans' })
 const playfair = Playfair_Display({
@@ -83,6 +85,7 @@ export default function RootLayout({
           playfair.variable
         )}
       >
+
         <Providers>
           <Header />
           <MobileNavigationWrapper>
@@ -91,6 +94,7 @@ export default function RootLayout({
           <FloatingDock items={links} desktopClassName='fixed inset-x-0 bottom-12 mx-auto w-fit' mobileClassName='fixed right-7 bottom-7' />
           <Footer />
         </Providers>
+
       </body>
     </html>
   )
