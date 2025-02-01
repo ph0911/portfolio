@@ -15,6 +15,8 @@ import {
   IconHome,
   IconMail,
 } from "@tabler/icons-react";
+import LayoutWrapper from '@/components/layout-wrapper'
+
 
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-sans' })
@@ -76,6 +78,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
+
   return (
     <html lang='en' suppressHydrationWarning>
       <body
@@ -87,12 +90,16 @@ export default function RootLayout({
       >
 
         <Providers>
-          <Header />
+          <LayoutWrapper>
+            <Header />
+          </LayoutWrapper>
           <MobileNavigationWrapper>
             <main className='grow overflow-hidden'>{children}</main>
           </MobileNavigationWrapper>
-          <FloatingDock items={links} desktopClassName='fixed inset-x-0 bottom-12 mx-auto w-fit' mobileClassName='fixed right-7 bottom-7' />
-          <Footer />
+          <LayoutWrapper>
+            <FloatingDock items={links} desktopClassName='fixed inset-x-0 bottom-12 mx-auto w-fit' mobileClassName='fixed right-7 bottom-7' />
+            <Footer />
+          </LayoutWrapper>
         </Providers>
 
       </body>
