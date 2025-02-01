@@ -1,8 +1,8 @@
-import NextAuth, { type Session, type User } from "next-auth";
+import NextAuth, { type Session } from "next-auth";
 import type { JWT } from "@auth/core/jwt";
 import GitHub from "next-auth/providers/github";
-import type { AdapterUser } from "next-auth/adapters";
-import type { Account, Profile } from "next-auth";
+
+import type { Profile } from "next-auth";
 
 const ALLOWED_USER_ID = process.env.ALLOWED_USER_ID;
 if (!ALLOWED_USER_ID) {
