@@ -17,7 +17,7 @@ import {
 import { NavMain } from "@/components/admin-dashboard/nav-main"
 import { NavProjects } from "@/components/admin-dashboard/nav-projects"
 import { NavUser } from "@/components/admin-dashboard/nav-user"
-import { TeamSwitcher } from "@/components/admin-dashboard/team-switcher"
+import { SpaceSwitcher } from "@/components/admin-dashboard/space-switcher"
 import {
   Sidebar,
   SidebarContent,
@@ -40,11 +40,11 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       email: session?.user?.email || "Keine E-Mail",
       avatar: session?.user?.image || "/default-avatar.png",
     },
-    teams: [
+    spaces: [
       {
-        name: "Acme Inc",
+        name: "pascalheue.dev",
         logo: GalleryVerticalEnd,
-        plan: "Enterprise",
+        plan: "Portfolio",
       },
       {
         name: "Acme Corp.",
@@ -166,7 +166,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
-        <TeamSwitcher teams={data.teams} />
+        <SpaceSwitcher spaces={data.spaces} />
       </SidebarHeader>
       <SidebarContent>
         <NavMain items={data.navMain} />
