@@ -1,7 +1,11 @@
 "use client"
 
 import {
+  BadgeCheck,
+  Bell,
+  Home,
   LogOut,
+  Sparkles,
 } from "lucide-react"
 
 import {
@@ -12,6 +16,7 @@ import {
 import {
   DropdownMenu,
   DropdownMenuContent,
+  DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
@@ -23,7 +28,7 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar"
-import { CaretSortIcon } from "@radix-ui/react-icons"
+import { CaretSortIcon, ComponentPlaceholderIcon } from "@radix-ui/react-icons"
 import { useTheme } from 'next-themes'
 import { signOut } from "next-auth/react";
 
@@ -79,13 +84,13 @@ export function NavUser({
               </div>
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
-            {/* <DropdownMenuGroup>
+            <DropdownMenuGroup>
               <DropdownMenuItem>
-                <Sparkles />
-                Upgrade to Pro
+                <Home />
+                Zur Homepage
               </DropdownMenuItem>
             </DropdownMenuGroup>
-            <DropdownMenuSeparator />
+            {/* <DropdownMenuSeparator />
             <DropdownMenuGroup>
               <DropdownMenuItem>
                 <BadgeCheck />
@@ -99,9 +104,9 @@ export function NavUser({
                 <Bell />
                 Notifications
               </DropdownMenuItem>
-            </DropdownMenuGroup>
-            <DropdownMenuSeparator /> */}
-            <DropdownMenuItem onClick={() => signOut()}>
+            </DropdownMenuGroup> */}
+            <DropdownMenuSeparator />
+            <DropdownMenuItem onClick={() => signOut()} className="bg-red-50">
               <LogOut />
               Log out
             </DropdownMenuItem>

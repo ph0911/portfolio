@@ -6,12 +6,12 @@ import Image from 'next/image'
 
 export default function Posts({ posts }: { posts: PostMetadata[] }) {
   return (
-    <ul className='flex flex-col gap-8'>
+    <ul className='flex flex-col gap-8 '>
       {posts.map(post => (
         <li key={post.slug}>
           <Link
             href={`/posts/${post.slug}`}
-            className='flex items-center gap-4'
+            className='flex items-center gap-4 px-3 py-2 hover:bg-gray-50 dark:hover:bg-gray-900 rounded-3xl'
           >
             <div className='flex-shrink-0 hidden md:block'>
               <Image
