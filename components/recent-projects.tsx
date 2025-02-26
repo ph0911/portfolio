@@ -8,7 +8,7 @@ export default async function RecentProjects({ showAllProjectsLink = true }) {
   return (
     <section className='pb-24'>
       <div>
-        <h2 className='title mb-12'>Projekte</h2>
+        <h2 className='title mb-12'>Featured Work</h2>
         <BentoGrid>
           {projects.map((project, index) => (
             <BentoGridItem

@@ -100,7 +100,7 @@ export default function SkillsSection() {
 
   return (
     <div className="pb-14 md:pb-24">
-      <h2 className='hidden md:block title pb-8'>Skills</h2>
+      <h2 className='hidden md:block title pb-12'>Tech Stack</h2>
       <InfiniteMovingCards
         items={webDevSkills}
         direction="left"
