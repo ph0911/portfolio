@@ -40,7 +40,7 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
   return (
     <div className="w-full pb-24" ref={containerRef}>
       <div className=" max-w-7xl mx-auto">
-        <h2 className="title mb-6">Werdegang</h2>
+        <h2 className="title mb-6">Experience</h2>
         {/* <p className="mb-8">Mein Ziel ist es, innovative digitale Lösungen zu entwickeln, die Ästhetik und Funktionalität nahtlos verbinden.</p> */}
       </div>
 

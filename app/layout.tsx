@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Inter, Playfair_Display } from 'next/font/google'
+import { Montserrat, Outfit, Cormorant_Infant } from 'next/font/google'
 import { cn } from '@/lib/utils'
 import './globals.css'
 import Providers from '@/components/providers'
@@ -15,11 +15,13 @@ import {
   IconMail,
 } from "@tabler/icons-react";
 
-const inter = Inter({ subsets: ['latin'], variable: '--font-sans' })
-const playfair = Playfair_Display({
-  subsets: ['latin'],
-  variable: '--font-serif'
-})
+const montserrat = Montserrat({ subsets: ['latin'], variable: '--font-sans' })
+// const outfit = Outfit({
+//   weight: '200',
+//   subsets: ['latin'],
+//   variable: '--font-serif'
+// })
+const cormorant = Cormorant_Infant({ weight: '500', subsets: ['latin'], variable: '--font-serif' })
 
 const MobileNavigationWrapper = dynamic(() => import('@/components/mobile-navigation-wrapper'), {
   ssr: false
@@ -79,8 +81,9 @@ export default function RootLayout({
       <body
         className={cn(
           'flex min-h-screen flex-col font-sans antialiased',
-          inter.variable,
-          playfair.variable
+          // outfit.variable, // commented out Outfit variant
+          montserrat.variable,
+          cormorant.variable
         )}
       >
         <Providers>

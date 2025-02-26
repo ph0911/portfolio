@@ -87,7 +87,23 @@ const config: Config = {
         lg: 'var(--radius)',
         md: 'calc(var(--radius) - 2px)',
         sm: 'calc(var(--radius) - 4px)'
-      }
+      },
+      spacing: {
+        '13': '13px',
+        '21': '21px',
+        '34': '34px',
+        '55': '55px',
+        '89': '89px',
+      },
+      fontSize: {
+        '3xl': '32px',
+        '4xl': '42px',
+      },
+      
+      width: {
+        'golden-large': '61.8%',
+        'golden-small': '38.2%',
+      },
     }
   },
   plugins: [
