@@ -1,12 +1,13 @@
 import MDXContent from '@/components/mdx-content'
 import { getPostBySlug, getPosts } from '@/lib/posts'
 import { formatDate } from '@/lib/utils'
-import { IconChevronLeft } from '@tabler/icons-react'
+import { ChevronLeft, User, Calendar } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import React from 'react'
 import ReadingProgress from '@/components/ui/reading-progress'
+import ModalWrapper from '@/components/ModalWrapper'
 
 export async function generateStaticParams() {
   const posts = await getPosts()
@@ -26,44 +27,58 @@ export default async function Post({ params }: { params: { slug: string } }) {
   const { metadata, content } = post
   const { title, image, author, publishedAt } = metadata
 
+  // Content that will be rendered both in modal and normal view
+  const PostContent = () => (
+    <>
+      {image && (
+        <div className='relative mb-6 h-60 md:h-96 w-full overflow-hidden shadow-2xl rounded-2xl md:rounded-3xl'>
+          <Image
+            src={image}
+            alt={title || ''}
+            className='object-cover'
+            fill
+            priority
+          />
+        </div>
+      )}
+      <header>
+        <h1 className='text-2xl md:text-4xl font-bold tracking-tight'>{title}</h1>
+        <p className='mt-2 text-xs text-neutral-500 dark:text-neutral-400 flex items-center gap-3'>
+          <span className="flex items-center gap-1">
+            <User size={14} />
+            {author}
+          </span>
+          <span className="inline-block w-1 h-1 bg-neutral-300 dark:bg-neutral-600 rounded-full"></span>
+          <span className="flex items-center gap-1">
+            <Calendar size={14} />
+            {formatDate(publishedAt ?? '')}
+          </span>
+        </p>
+      </header>
+      <main className='prose prose-sm md:prose-base mt-8 md:mt-16 max-w-full dark:prose-invert'>
+        <MDXContent source={content} />
+      </main>
+    </>
+  )
+
   return (
-    <section className='pb-24 pt-24 md:pt-32'>
-      <div className='container max-w-3xl'>
-
-        <Link
-          href='/posts'
-          className='mb-8 inline-flex items-center gap-2 text-sm font-light text-muted-foreground transition-colors hover:text-foreground'
-        >
-          <IconChevronLeft className='h-5 w-5' />
-          <span>Blog</span>
-        </Link>
-        <ReadingProgress />
-        {image && (
-          <div className='relative mb-6 h-96 w-full overflow-hidden rounded-3xl'>
-            <Image
-              src={image}
-              alt={title || ''}
-              className='object-cover max-w-3xl'
-              fill
-            />
+    <ModalWrapper parentPath="/posts" isActive={true}>
+      <section className='pb-16 md:pb-24 pt-4 md:pt-32'>
+        <div className='container max-w-3xl'>
+          <Link
+            href='/posts'
+            className='mb-8 md:inline-flex hidden items-center gap-2 text-sm font-light text-muted-foreground transition-colors hover:text-foreground'
+          >
+            <ChevronLeft className='h-5 w-5' />
+            <span>Blog</span>
+          </Link>
+          <div className="hidden md:block">
+            <ReadingProgress />
           </div>
-        )}
-
-
-
-        <header>
-          <h1 className='title'>{title}</h1>
-          <p className='mt-3 text-xs text-muted-foreground'>
-            {author} / {formatDate(publishedAt ?? '')}
-          </p>
-        </header>
-
-        <main className='prose mt-16 max-w-full dark:prose-invert'>
-          <MDXContent source={content} />
-        </main>
-
-
-      </div>
-    </section>
+          
+          <PostContent />
+        </div>
+      </section>
+    </ModalWrapper>
   )
 }
