@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { getPosts } from '@/lib/posts'
 import Posts from '@/components/posts'
+import { FileText } from 'lucide-react'
 
 export default async function RecentPosts() {
   const posts = await getPosts(4)
@@ -13,9 +14,10 @@ export default async function RecentPosts() {
 
         <Link
           href='/posts'
-          className='mt-8 inline-flex items-center gap-2 text-muted-foreground underline decoration-1 underline-offset-2 transition-colors hover:text-foreground'
+          className='font-light mt-8 inline-flex items-center gap-2 text-muted-foreground underline decoration-1 underline-offset-2 transition-colors hover:text-foreground tracking-wide'
         >
-          <span>Alle Beiträge</span>
+          <FileText size={16} className="animate-pulse" />
+          <span>alle Beiträge</span>
         </Link>
       </div>
     </section>

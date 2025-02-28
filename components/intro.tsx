@@ -2,7 +2,7 @@ import Image from 'next/image'
 import authorImage from '@/public/images/authors/author-apple.png'
 import { FlipWords } from './ui/flip-words'
 import Link from 'next/link'
-
+import { Mail } from 'lucide-react'
 
 export default function Intro() {
   return (
@@ -25,9 +25,10 @@ export default function Intro() {
         </p>
         <Link
                   href='mailto:info@pascalheue.dev?subject=Kontakt%20Anfrage%20Website&body=Hey%2C%20'
-                  className='font-light  mt-2 inline-flex items-center gap-2 text-muted-foreground underline decoration-1 underline-offset-2 transition-colors hover:text-foreground'
+                  className='font-light mt-2 inline-flex items-center gap-2 text-muted-foreground underline decoration-1 underline-offset-2 transition-colors hover:text-foreground'
                 >
-                  <span>Kontakt</span>
+                  <Mail size={16} className="animate-pulse" />
+                  <span>mail me</span>
         </Link>
       </div>
     </section>

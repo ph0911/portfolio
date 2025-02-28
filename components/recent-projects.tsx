@@ -1,6 +1,7 @@
 import { BentoGrid, BentoGridItem } from '@/components/ui/bento-grid'
 import { getProjects } from '@/lib/projects'
 import Link from 'next/link'
+import { Briefcase } from 'lucide-react'
 
 export default async function RecentProjects({ showAllProjectsLink = true }) {
   const projects = await getProjects(4)
@@ -25,9 +26,10 @@ export default async function RecentProjects({ showAllProjectsLink = true }) {
         {showAllProjectsLink && (
           <Link
             href='/projects'
-            className='mt-8 inline-flex items-center gap-2 text-muted-foreground underline decoration-1 underline-offset-2 transition-colors hover:text-foreground'
+            className='font-light mt-8 inline-flex items-center gap-2 text-muted-foreground underline decoration-1 underline-offset-2 transition-colors hover:text-foreground tracking-wide'
           >
-            <span>Alle Projekte</span>
+            <Briefcase size={16} className="animate-pulse" />
+            <span>alle Projekte</span>
           </Link>
         )}
       </div>
