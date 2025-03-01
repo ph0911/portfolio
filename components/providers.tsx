@@ -2,6 +2,7 @@
 
 import { ThemeProvider, useTheme } from 'next-themes'
 import { Toaster } from '@/components/ui/sonner'
+import { MobileViewportProvider } from '@/contexts/mobile-viewport-context'
 
 export default function Providers({ children }: { children: React.ReactNode }) {
   return (
@@ -11,8 +12,10 @@ export default function Providers({ children }: { children: React.ReactNode }) {
       defaultTheme='system'
       disableTransitionOnChange
     >
-      {children}
-      <ToasterProvider />
+      <MobileViewportProvider>
+        {children}
+        <ToasterProvider />
+      </MobileViewportProvider>
     </ThemeProvider>
   )
 }

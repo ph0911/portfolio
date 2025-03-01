@@ -2,7 +2,7 @@ import Image from 'next/image'
 import authorImage from '@/public/images/authors/author-apple.png'
 import { FlipWords } from './ui/flip-words'
 import Link from 'next/link'
-import { Mail } from 'lucide-react'
+import { Mail, User } from 'lucide-react'
 
 export default function Intro() {
   return (
@@ -23,13 +23,22 @@ export default function Intro() {
         <p className='mt-21 font-light text-muted-foreground'>
           Ich bin ein Designer mit Entwickler-DNA. Ob visuelles Branding oder benutzerfreundliche Webanwendungen – ich bringe Kreativität und Technologie zusammen, um maßgeschneiderte Lösungen zu schaffen.
         </p>
-        <Link
-                  href='mailto:info@pascalheue.dev?subject=Kontakt%20Anfrage%20Website&body=Hey%2C%20'
-                  className='font-light mt-2 inline-flex items-center gap-2 text-muted-foreground underline decoration-1 underline-offset-2 transition-colors hover:text-foreground'
-                >
-                  <Mail size={16} className="animate-pulse" />
-                  <span>mail me</span>
-        </Link>
+        <div className="flex items-center gap-6 mt-2">
+          <Link
+            href='mailto:info@pascalheue.dev?subject=Kontakt%20Anfrage%20Website&body=Hey%2C%20'
+            className='font-light inline-flex items-center gap-2 text-muted-foreground underline decoration-1 underline-offset-2 transition-colors hover:text-foreground'
+          >
+            <Mail size={16} className="animate-pulse" />
+            <span>mail me</span>
+          </Link>
+          <Link
+            href='/profil'
+            className='font-light inline-flex items-center gap-2 text-muted-foreground underline decoration-1 underline-offset-2 transition-colors hover:text-foreground'
+          >
+            <User size={16} />
+            <span>mehr über mich</span>
+          </Link>
+        </div>
       </div>
     </section>
   )

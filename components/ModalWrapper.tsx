@@ -1,9 +1,11 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { useEffect, useRef, useState } from 'react';
+import { useRef } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useVerticalSwipe } from '@/hooks/use-vertical-swipe';
+import { useMobileViewportContext } from '@/contexts/mobile-viewport-context';
+import { ModalWrapperProvider } from '@/contexts/modal-wrapper-context';
 
 interface ModalWrapperProps {
   parentPath: string;
@@ -17,10 +19,9 @@ export default function ModalWrapper({
   isActive = false,
 }: ModalWrapperProps) {
   const router = useRouter();
-  const [isMobile, setIsMobile] = useState(false);
   const contentRef = useRef<HTMLDivElement>(null);
   const isAtTopRef = useRef<boolean>(true);
-  const [mounted, setMounted] = useState(false);
+  const { isMobile, mounted } = useMobileViewportContext();
 
   // Check if we're at the top of the scroll
   const checkScrollPosition = () => {
@@ -46,21 +47,6 @@ export default function ModalWrapper({
     isAtTopRef,
   });
 
-  // Check if we're on a mobile device
-  useEffect(() => {
-    const checkIsMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-
-    // Initial check
-    checkIsMobile();
-    setMounted(true);
-    
-    // Set up listener for window resize
-    window.addEventListener('resize', checkIsMobile);
-    return () => window.removeEventListener('resize', checkIsMobile);
-  }, []);
-
   // If not mounted yet, render nothing to avoid hydration issues
   if (!mounted) {
     return null;
@@ -68,14 +54,14 @@ export default function ModalWrapper({
 
   // Modal is only active on mobile devices
   if (!isMobile) {
-    return <>{children}</>;
+    return <ModalWrapperProvider isInsideModal={false} isActive={false}>{children}</ModalWrapperProvider>;
   }
 
   return (
     <AnimatePresence mode="wait">
       {isActive && (
         <motion.div 
-          className="fixed inset-0 z-50 bg-black/10  backdrop-blur-md"
+          className="fixed inset-0 z-50 bg-black/10 backdrop-blur-md"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -98,17 +84,19 @@ export default function ModalWrapper({
             onTouchEnd={onTouchEnd}
           >
             {/* Handle bar */}
-            <div className="modal-handle absolute  top-[-42px] h-12 w-full flex items-center justify-center cursor-grab active:cursor-grabbing touch-none">
+            <div className="modal-handle absolute top-[-42px] h-12 w-full flex items-center justify-center cursor-grab active:cursor-grabbing touch-none">
               <div className="w-10 h-1 rounded-full bg-gray-700 dark:bg-gray-200" />
             </div>
             
-            {/* Scrollbarer Inhalt */}
+            {/* Scrollable content */}
             <div 
-              className="max-h-[85vh] overflow-y-auto overscroll-contain "
+              className="max-h-[85vh] overflow-y-auto overscroll-contain"
               ref={contentRef}
               onScroll={checkScrollPosition}
             >
-              {children}
+              <ModalWrapperProvider isInsideModal={true} isActive={isActive}>
+                {children}
+              </ModalWrapperProvider>
             </div>
           </motion.div>
         </motion.div>

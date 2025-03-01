@@ -18,6 +18,7 @@ import {
 } from "framer-motion";
 import Link from "next/link";
 import { useRef, useState } from "react";
+import { useMobileViewportContext } from "@/contexts/mobile-viewport-context";
 
 export const FloatingDock = ({
   items,
@@ -28,10 +29,12 @@ export const FloatingDock = ({
   desktopClassName?: string;
   mobileClassName?: string;
 }) => {
+  const { isMobile } = useMobileViewportContext();
+
   return (
     <>
-      <FloatingDockDesktop items={items} className={desktopClassName} />
-      <FloatingDockMobile items={items} className={mobileClassName} />
+      {!isMobile && <FloatingDockDesktop items={items} className={desktopClassName} />}
+      {isMobile && <FloatingDockMobile items={items} className={mobileClassName} />}
     </>
   );
 };
@@ -44,8 +47,9 @@ const FloatingDockMobile = ({
     className?: string;
   }) => {
     const [open, setOpen] = useState(false);
+    
     return (
-      <div className={cn("relative block md:hidden", className)}>
+      <div className={cn("relative block", className)}>
         <AnimatePresence>
           {open && (
             <motion.div
@@ -104,22 +108,24 @@ const FloatingDockDesktop = ({
   className?: string;
 }) => {
   let mouseX = useMotionValue(Infinity);
+  
   return (
     <motion.div
-  onMouseMove={(e) => mouseX.set(e.pageX)}
-  onMouseLeave={() => mouseX.set(Infinity)}
-  className={cn(
-    "mx-auto hidden md:flex h-16 gap-4 items-end rounded-full bg-gray-100 dark:bg-gray-800 bg-opacity-40 shadow-md dark:bg-opacity-40 backdrop-blur-sm px-4 pb-3  border-t border-t-white/100 dark:border-t-white/10 border-b border-b-white/10 dark:border-b-white/10",
-    className
-  )}
->
-  {items.map((item) => (
-    <IconContainer mouseX={mouseX} key={item.title} {...item} />
-  ))}
-</motion.div>
+      onMouseMove={(e) => mouseX.set(e.pageX)}
+      onMouseLeave={() => mouseX.set(Infinity)}
+      className={cn(
+        "mx-auto flex h-16 gap-4 items-end rounded-full bg-gray-100 dark:bg-gray-800 bg-opacity-40 shadow-md dark:bg-opacity-40 backdrop-blur-sm px-4 pb-3 border-t border-t-white/100 dark:border-t-white/10 border-b border-b-white/10 dark:border-b-white/10",
+        className
+      )}
+    >
+      {items.map((item) => (
+        <IconContainer mouseX={mouseX} key={item.title} {...item} />
+      ))}
+    </motion.div>
   );
 };
 
+// The rest of the IconContainer function stays the same
 function IconContainer({
   mouseX,
   title,
@@ -131,6 +137,7 @@ function IconContainer({
   icon: React.ReactNode;
   href: string;
 }) {
+  // ...existing code...
   let ref = useRef<HTMLDivElement>(null);
 
   let distance = useTransform(mouseX, (val) => {
@@ -140,16 +147,16 @@ function IconContainer({
   });
 
   let widthTransform = useTransform(distance, [-150, 0, 150], [40, 60, 40]);
-let heightTransform = useTransform(distance, [-150, 0, 150], [40, 60, 40]);
-
-let widthTransformIcon = useTransform(distance, [-150, 0, 150], [20, 30, 20]);
-let heightTransformIcon = useTransform(distance, [-150, 0, 150], [20, 30, 20]);
+  let heightTransform = useTransform(distance, [-150, 0, 150], [40, 60, 40]);
+  let widthTransformIcon = useTransform(distance, [-150, 0, 150], [20, 30, 20]);
+  let heightTransformIcon = useTransform(distance, [-150, 0, 150], [20, 30, 20]);
 
   let width = useSpring(widthTransform, {
     mass: 0.1,
     stiffness: 150,
     damping: 12,
   });
+
   let height = useSpring(heightTransform, {
     mass: 0.1,
     stiffness: 150,
@@ -161,6 +168,7 @@ let heightTransformIcon = useTransform(distance, [-150, 0, 150], [20, 30, 20]);
     stiffness: 150,
     damping: 12,
   });
+
   let heightIcon = useSpring(heightTransformIcon, {
     mass: 0.1,
     stiffness: 150,
