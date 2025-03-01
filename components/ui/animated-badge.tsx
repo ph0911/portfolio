@@ -1,12 +1,31 @@
 'use client'
 
-import React, { useState, useId, useEffect } from 'react'
+import React, { useState, useId, useEffect, ReactNode } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { X } from 'lucide-react'
+
+interface AnimatedBadgeProps {
+  children: ReactNode;
+}
 
 interface Card {
   title: string
   content: string
+}
+
+export const AnimatedBadge: React.FC<AnimatedBadgeProps> = ({ children }) => {
+  const id = useId()
+  
+  return (
+    <motion.div
+      layoutId={`card-${id}`}
+      className="inline-flex items-center justify-center rounded-full px-3 py-1 text-sm font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-white dark:focus:ring-neutral-900 focus:ring-offset-2 bg-neutral-800 dark:bg-white text-white dark:text-neutral-900 hover:bg-neutral-700 dark:hover:bg-neutral-100"
+    >
+      <motion.span layoutId={`title-${id}`}>
+        {children}
+      </motion.span>
+    </motion.div>
+  )
 }
 
 const cards: Card[] = [
@@ -24,21 +43,20 @@ const cards: Card[] = [
   }
 ]
 
-export default function AnimatedBadge() {
+export default function InteractiveBadges() {
   const [activeCard, setActiveCard] = useState<Card | null>(null)
   const id = useId()
-
+  
   useEffect(() => {
     function onKeyDown(event: KeyboardEvent) {
       if (event.key === "Escape") {
         setActiveCard(null)
       }
     }
-
     window.addEventListener("keydown", onKeyDown)
     return () => window.removeEventListener("keydown", onKeyDown)
   }, [])
-
+  
   useEffect(() => {
     if (activeCard) {
       document.body.style.overflow = "hidden"
@@ -46,7 +64,7 @@ export default function AnimatedBadge() {
       document.body.style.overflow = "auto"
     }
   }, [activeCard])
-
+  
   return (
     <div className="p-4 max-w-4xl mx-auto">
       <AnimatePresence>
@@ -88,7 +106,6 @@ export default function AnimatedBadge() {
           </motion.div>
         )}
       </AnimatePresence>
-
       <div className="flex flex-wrap gap-2">
         {cards.map((card) => (
           <motion.div
