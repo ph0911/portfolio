@@ -7,7 +7,6 @@ import { getProjectBySlug, getProjects } from '@/lib/projects'
 import { notFound } from 'next/navigation'
 import ReadingProgress from '@/components/ui/reading-progress'
 import ModalWrapper from '@/components/ModalWrapper'
-import Summary from '@/components/ui/collapsible-summary'
 
 
 export async function generateStaticParams() {

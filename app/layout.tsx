@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Montserrat, Outfit, Cormorant_Infant } from 'next/font/google'
+import { Montserrat, Cormorant_Infant } from 'next/font/google'
 import { cn } from '@/lib/utils'
 import './globals.css'
 import Providers from '@/components/providers'
