@@ -3,7 +3,7 @@
 import ModalWrapper from '@/components/ModalWrapper';
 import { Timeline } from '@/components/ui/timeline';
 import Image from 'next/image';
-import authorImage from '@/public/images/authors/author.png';
+import authorImage from '@/public/images/authors/author.jpg';
 import Link from 'next/link';
 import { ChevronLeft } from 'lucide-react';
 
@@ -107,10 +107,10 @@ export default function ProfilePage() {
                 <Image 
                   src={authorImage}
                   alt="Pascal Heue"
-                  className="w-24 h-24 rounded-full object-cover"
+                  className="w-24 h-24 rounded-3xl object-cover shadow-xl"
                   width={96}
                   height={96}
-                  priority
+                  priority={true}
                   sizes="(max-width: 768px) 100vw, 50vw"
                 />
               </div>

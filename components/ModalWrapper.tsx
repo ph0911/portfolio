@@ -1,7 +1,7 @@
 'use client';
 
 import { useRouter, usePathname } from 'next/navigation';
-import { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect, useState, useCallback } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useVerticalSwipe } from '@/hooks/use-vertical-swipe';
 import { useMobileViewportContext } from '@/contexts/mobile-viewport-context';
@@ -27,20 +27,20 @@ export default function ModalWrapper({
   const [contentReady, setContentReady] = useState(false);
   const [startTime, setStartTime] = useState<number | null>(null);
 
-  // Calculate dynamic parent path
-  const getParentPath = () => {
+  // Make getParentPath memoized with useCallback
+  const getParentPath = useCallback(() => {
     if (parentPath) return parentPath;
     const pathSegments = pathname.split('/');
     pathSegments.pop();
     return pathSegments.join('/') || '/';
-  };
+  }, [parentPath, pathname]);
 
   useEffect(() => {
     // Preload parent page for smooth transition when modal closes
     if (isActive && isMobile) {
       router.prefetch(getParentPath());
     }
-  }, [isActive, isMobile, router]);
+  }, [isActive, isMobile, router, getParentPath]);
 
   useEffect(() => {
     if (isActive) {
