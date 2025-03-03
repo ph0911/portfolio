@@ -3,6 +3,7 @@ import Link from 'next/link'
 
 import { ProjectMetadata } from '@/lib/projects'
 import { formatDate } from '@/lib/utils'
+import { ProjectPreload } from './preload'
 
 
 export default function Projects({
@@ -14,6 +15,7 @@ export default function Projects({
     <ul className='grid grid-cols-1 gap-8 sm:grid-cols-2'>
       {projects.map(project => (
         <li key={project.slug} className='group relative'>
+          <ProjectPreload slug={project.slug}>
           <Link href={`/projects/${project.slug}`}>
             {project.image && (
               <div className='h-72 w-full overflow-hidden bg-muted sm:h-60'>
@@ -42,6 +44,7 @@ export default function Projects({
               </p>
             </div>
           </Link>
+          </ProjectPreload>
         </li>
       ))}
     </ul>

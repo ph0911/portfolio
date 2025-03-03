@@ -7,6 +7,7 @@ import { useState, useEffect } from 'react';
  * @param breakpoint - The width threshold for mobile devices (default: 768px)
  * @returns A boolean indicating if the current viewport is mobile
  */
+  
 export function useMobileViewport(breakpoint: number = 768) {
   const [isMobile, setIsMobile] = useState(false);
   const [mounted, setMounted] = useState(false);
