@@ -38,20 +38,13 @@ export default async function Post({ params }: { params: { slug: string } }) {
             alt={title || ''}
             className='object-cover'
             fill
-            priority
+            priority={true}
           />
         </div>
       )}
       <header>
         <h1 className='text-2xl md:text-3xl font-medium'>{title}</h1>
-        <div className="space-y-4">
-          
-          <div className='mt-4 flex items-stretch gap-3'>
-            <div className='block bg-neutral-200 dark:bg-neutral-800 w-1 self-stretch rounded-full'></div>
-            <p className="text-xs text-muted-foreground leading-relaxed">
-              {summary}
-            </p>
-          </div>
+        <div className="space-y-4">         
           <p className='mt-2 text-xs text-neutral-500 dark:text-neutral-400 flex items-center gap-3'>
             <span className="flex items-center gap-1">
               <User size={14} />
@@ -63,6 +56,12 @@ export default async function Post({ params }: { params: { slug: string } }) {
               {formatDate(publishedAt ?? '')}
             </span>
           </p>
+          <div className='mt-4 flex items-stretch gap-3'>
+            <div className='block bg-neutral-200 dark:bg-neutral-800 w-1 self-stretch rounded-full'></div>
+            <p className="text-xs text-muted-foreground leading-relaxed">
+              {summary}
+            </p>
+          </div>
         </div>
       </header>
       <main className='prose prose-sm md:prose-base mt-8 md:mt-16 max-w-full dark:prose-invert'>

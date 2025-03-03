@@ -17,7 +17,7 @@ interface ProfilePreloadProps {
   }
 
 export function PostPreload({ slug, children }: PostPreloadProps) {
-  const { ref, isInView } = useInViewPreload(`/posts/${slug}`);
+  const { ref } = useInViewPreload(`/posts/${slug}`);
 
   return (
     <div ref={ref}>
@@ -27,7 +27,7 @@ export function PostPreload({ slug, children }: PostPreloadProps) {
 }
 
 export function ProjectPreload({ slug, children }: ProjectPreloadProps) {
-  const { ref, isInView } = useInViewPreload(`/projects/${slug}`);
+  const { ref } = useInViewPreload(`/projects/${slug}`);
 
   return (
     <div ref={ref}>
@@ -37,7 +37,7 @@ export function ProjectPreload({ slug, children }: ProjectPreloadProps) {
 }
 
 export function ProfilePreload({ children }: ProfilePreloadProps) {
-    const { ref, isInView } = useInViewPreload('/profil');
+    const { ref } = useInViewPreload('/profil');
   
     return (
       <div ref={ref}>
