@@ -3,12 +3,14 @@ import Link from 'next/link'
 import { PostMetadata } from '@/lib/posts'
 import { formatDate } from '@/lib/utils'
 import Image from 'next/image'
+import { PostPreload } from './preload'
 
 export default function Posts({ posts }: { posts: PostMetadata[] }) {
   return (
     <ul className='flex flex-col gap-8'>
       {posts.map(post => (
         <li key={post.slug}>
+          <PostPreload slug={post.slug}>
           <Link
             href={`/posts/${post.slug}`}
             className='flex items-center gap-4'
@@ -36,6 +38,8 @@ export default function Posts({ posts }: { posts: PostMetadata[] }) {
               )}
             </div>
           </Link>
+
+          </PostPreload>
         </li>
       ))}
     </ul>

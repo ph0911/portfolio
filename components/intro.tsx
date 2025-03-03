@@ -3,6 +3,7 @@ import authorImage from '@/public/images/authors/author-apple.png'
 import { FlipWords } from './ui/flip-words'
 import Link from 'next/link'
 import { Mail, User } from 'lucide-react'
+import { ProfilePreload } from './preload'
 
 export default function Intro() {
   return (
@@ -31,6 +32,8 @@ export default function Intro() {
             <Mail size={16} className="animate-pulse" />
             <span>mail me</span>
           </Link>
+          <ProfilePreload>
+
           <Link
             href='/profil'
             className='font-light inline-flex items-center gap-2 text-muted-foreground underline decoration-1 underline-offset-2 transition-colors hover:text-foreground'
@@ -38,6 +41,7 @@ export default function Intro() {
             <User size={16} />
             <span>mehr über mich</span>
           </Link>
+          </ProfilePreload>
         </div>
       </div>
     </section>

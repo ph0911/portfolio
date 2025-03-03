@@ -111,6 +111,7 @@ export default function ProfilePage() {
                   width={96}
                   height={96}
                   priority
+                  sizes="(max-width: 768px) 100vw, 50vw"
                 />
               </div>
               
