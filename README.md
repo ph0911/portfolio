@@ -1,36 +1,91 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Pascal Heue Portfolio
 
-## Getting Started
+Ein minimalistisches, responsives Portfolio mit Next.js, MDX und TailwindCSS, das meine Projekte und Blogbeiträge präsentiert.
 
-First, run the development server:
+## Überblick
+
+Dieses Portfolio wurde mit modernen Technologien entwickelt und bietet eine benutzerfreundliche Oberfläche mit:
+
+- Dynamischen Projektübersichten und detaillierten Projektseiten
+- Blogbereich für Artikel zu Entwicklungsthemen
+- Responsive Design für alle Geräte (Mobile-First Ansatz)
+- Light- und Dark-Mode
+- Animierte UI-Elemente für ein verbessertes Benutzererlebnis
+- Optimierte Performance durch Next.js
+
+## Tech Stack
+
+- **Next.js**: React-Framework mit SSR und SSG Unterstützung
+- **MDX**: Ermöglicht die Nutzung von React-Komponenten in Markdown-Dateien
+- **TailwindCSS**: Utility-first CSS-Framework für flexibles Styling
+- **shadcn/ui**: Anpassbare UI-Komponenten-Bibliothek
+- **Aceternity UI**: Dynamische UI-Komponenten und Animationen
+- **TypeScript**: Typsicherheit für robuste Codestruktur
+
+## Features
+
+- **Dynamischer Content**: Blog- und Projektinhalte werden aus MDX-Dateien generiert
+- **Modales Routing**: Verbesserte Nutzererfahrung durch Modal-basierte Navigation
+- **Preloading**: Strategisches Vorladen von Inhalten für schnellere Navigation
+- **Lesemarker**: Visuelle Anzeige des Lesefortschritts in Artikeln
+- **Kontaktformular**: Einfache Kontaktmöglichkeit
+- **Animierte UI-Elemente**: Bento-Grid, Flip Words, Timeline und mehr
+
+## Projektstruktur
+
+```
+app/              # Next.js App-Router Dateien und Seiten
+components/       # React-Komponenten
+content/          # MDX-Dateien für Projekte und Blogbeiträge
+contexts/         # React Context-Provider
+hooks/            # Custom React-Hooks
+lib/              # Hilfsfunktionen und Utilities
+public/           # Statische Assets wie Bilder
+```
+
+## Lokale Entwicklung
+
+Installiere die Abhängigkeiten:
+
+```bash
+npm install
+# oder
+yarn install
+# oder
+pnpm install
+```
+
+Starte den Entwicklungsserver:
 
 ```bash
 npm run dev
-# or
+# oder
 yarn dev
-# or
+# oder
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Öffne [http://localhost:3000](http://localhost:3000) im Browser, um das Ergebnis zu sehen.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Deployment
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Das Projekt ist für das Deployment auf Vercel optimiert. Es kann mit wenigen Klicks über die [Vercel Platform](https://vercel.com) deployt werden.
 
-## Learn More
+Verbinde dein GitHub-Repository mit Vercel für automatisierte Deployments bei jedem Push:
 
-To learn more about Next.js, take a look at the following resources:
+1. Importiere das Repository auf Vercel
+2. Vercel erkennt automatisch die Next.js-Konfiguration
+3. Das Projekt wird gebaut und deployed
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Performance-Optimierungen
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Das Projekt enthält mehrere Optimierungen für eine bessere Benutzererfahrung:
 
-## Deploy on Vercel
+- Preload-Strategien für wichtige Seiten und Inhalte
+- Optimierte Bildladezeiten mit next/image
+- Modale Navigation mit verbesserten Übergangsanimationen
+- Code-Splitting und dynamisches Laden von Komponenten
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Lizenz
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+© Pascal Heue. Alle Rechte vorbehalten.
