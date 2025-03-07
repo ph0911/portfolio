@@ -3,6 +3,7 @@ import { Montserrat, Cormorant_Infant } from 'next/font/google'
 import { cn } from '@/lib/utils'
 import './globals.css'
 import Providers from '@/components/providers'
+import { SpeedInsights } from "@vercel/speed-insights/next"
 import Header from '@/components/header'
 import Footer from '@/components/footer'
 import dynamic from 'next/dynamic'
