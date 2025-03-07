@@ -87,6 +87,7 @@ export default function RootLayout({
           cormorant.variable
         )}
       >
+        <SpeedInsights />
         <Providers>
           <Header />
           <MobileNavigationWrapper>
