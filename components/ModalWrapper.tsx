@@ -26,6 +26,7 @@ export default function ModalWrapper({
   const [isLoading, setIsLoading] = useState(true);
   const [contentReady, setContentReady] = useState(false);
   const [startTime, setStartTime] = useState<number | null>(null);
+  const [showSpinner, setShowSpinner] = useState(false);
 
   // Make getParentPath memoized with useCallback
   const getParentPath = useCallback(() => {
@@ -45,17 +46,31 @@ export default function ModalWrapper({
   useEffect(() => {
     if (isActive) {
       setStartTime(performance.now());
-      // Set a small initial delay for smoother animation prep
+      
+      // Start rendering the modal immediately
+      // but wait to show content
       const loadingTimer = setTimeout(() => {
         setIsLoading(false);
-      }, 100);
-      return () => clearTimeout(loadingTimer);
+      }, 50); // Reduced from 100ms for faster modal appearance
+      
+      // Only show spinner if loading takes longer than 300ms
+      const spinnerTimer = setTimeout(() => {
+        if (isLoading) {
+          setShowSpinner(true);
+        }
+      }, 300);
+      
+      return () => {
+        clearTimeout(loadingTimer);
+        clearTimeout(spinnerTimer);
+      };
     } else {
       // Reset states when modal is inactive
       setIsLoading(true);
+      setShowSpinner(false);
       setContentReady(false);
     }
-  }, [isActive]);
+  }, [isActive, isLoading]);
 
   // Set content ready after loading is complete
   useEffect(() => {
@@ -121,7 +136,9 @@ export default function ModalWrapper({
         >
           {isLoading ? (
             <div className="absolute inset-0 flex items-center justify-center">
-              <div className="w-10 h-10 border-4 border-t-transparent border-gray-700 dark:border-gray-300 rounded-full animate-spin" />
+              {showSpinner && (
+                <div className="w-10 h-10 border-4 border-t-transparent border-gray-700 dark:border-gray-300 rounded-full animate-spin" />
+              )}
             </div>
           ) : (
             <motion.div
@@ -132,10 +149,12 @@ export default function ModalWrapper({
               exit={{ y: '100%' }}
               transition={{ 
                 type: 'spring',
-                stiffness: 600,
-                damping: 30,
-                mass: 0.6,
-                velocity: 1.2,
+                stiffness: 450,     // Lower from 600 for less snappy feel
+                damping: 28,        // Slightly adjusted for better bounce
+                mass: 0.25,          // Lower for faster initial response
+                velocity: 2,        // Higher initial velocity for quicker start
+                restDelta: 0.5,     // Stop animation earlier when almost complete
+                restSpeed: 0.5,     // Also helps end animation sooner
               }}
               onTouchStart={onTouchStart}
               onTouchMove={onTouchMove}
