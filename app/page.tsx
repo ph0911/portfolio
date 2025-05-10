@@ -5,6 +5,9 @@ import RecentPosts from '@/components/recent-posts'
 import RecentProjects from '@/components/recent-projects'
 import SkillsSection from '@/components/skills-section'
 
+
+
+
 export default function Home() {
   return (
     <section className='py-24'>
