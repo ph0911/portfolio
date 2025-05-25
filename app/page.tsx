@@ -4,6 +4,7 @@ import React from 'react'
 import RecentPosts from '@/components/recent-posts'
 import RecentProjects from '@/components/recent-projects'
 import SkillsSection from '@/components/skills-section'
+import ProjectCardDemo from '@/components/projectCardDemo'
 
 export default function Home() {
   return (
@@ -13,6 +14,7 @@ export default function Home() {
         <SkillsSection />
         <RecentPosts />
         <RecentProjects />
+        <ProjectCardDemo />
       </div>
     </section>
   )
