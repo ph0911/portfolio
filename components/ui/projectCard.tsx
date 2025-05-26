@@ -84,7 +84,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
         )}
 
         {/* Gradient Overlay for text readability */}
-        <div className="absolute inset-0 bg-black/45 pointer-events-none" />
+        <div className="absolute inset-0 bg-black/25 pointer-events-none" />
         
         {/* Content Container: Positioned at the bottom */}
         <div className="absolute inset-x-0 bottom-0 p-5 text-white z-10">
