@@ -4,7 +4,7 @@ import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
-import { Layers, CalendarDays } from 'lucide-react' // Added Layers and CalendarDays
+import { Calendar } from 'lucide-react' // Using Calendar icon like in slug pages
 import { cn } from '@/lib/utils'
 import { ProjectMetadata } from '@/lib/projects'
 
@@ -26,16 +26,13 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
     tags,
     publishedAt, // Added publishedAt
   } = project
-
-  const primaryTag = tags && tags.length > 0 ? tags[0] : null;
   
   // Date formatting
   const formattedDate = publishedAt 
     ? new Date(publishedAt).toLocaleDateString('de-DE', { month: 'short', year: 'numeric' }) 
     : null;
 
-  const secondaryTags = tags ? tags.slice(1) : [];
-  const pillStyle = "inline-block bg-white/10 text-white text-xs font-medium px-3 py-1.5 rounded-lg backdrop-blur-sm hover:bg-white/20 transition-colors";
+  const pillStyle = "inline-block bg-white/10 text-white text-[10px] font-medium px-2 py-1 rounded-md backdrop-blur-sm hover:bg-white/20 transition-colors";
 
   return (
     <motion.div
@@ -65,7 +62,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
         <div className="absolute top-0 left-0 right-0 p-5 flex justify-between items-center text-white/80 text-xs z-20">
           {formattedDate && (
             <div className="flex items-center gap-1">
-              <CalendarDays size={14} />
+              <Calendar size={14} />
               <span>{formattedDate}</span>
             </div>
           )}
@@ -88,27 +85,23 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
         
         {/* Content Container: Positioned at the bottom */}
         <div className="absolute inset-x-0 bottom-0 p-5 text-white z-10">
-          {primaryTag && (
-            <span className="block text-xs uppercase font-semibold tracking-wider text-white/80 mb-1">
-              {primaryTag}
-            </span>
-          )}
+          <span className="block text-[10px] uppercase font-semibold tracking-[0.1em] text-white/70 mb-2">
+            Project
+          </span>
           <h3 className="text-xl font-semibold text-white leading-tight line-clamp-2 break-words">
             {title}
           </h3>
           <div className="mt-3 flex flex-wrap gap-2 items-center">
-            {secondaryTags.length > 0 ? (
+            {tags && tags.length > 0 ? (
               <>
-                <span className={pillStyle}>{secondaryTags[0]}</span>
-                {secondaryTags.length > 1 && ( // If there's at least a second secondary tag
+                <span className={pillStyle}>{tags[0]}</span>
+                {tags.length > 1 && ( 
                   <span className={pillStyle}>
-                    {/* Display the second tag or a "+X more" indicator */}
-                    {secondaryTags.length === 2 ? secondaryTags[1] : `+${secondaryTags.length - 1} more`}
+                    {tags.length === 2 ? tags[1] : `+${tags.length - 1} more`}
                   </span>
                 )}
               </>
             ) : (
-              // If there are no secondary tags, always show "View Project"
               <span className={pillStyle}>View Project</span>
             )}
           </div>
