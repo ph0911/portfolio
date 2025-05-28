@@ -6,7 +6,7 @@ import { ProjectMetadata } from '@/lib/projects'
 
 // Demo data using your existing project structure
 const demoProject: ProjectMetadata = {
-  title: "Minimalistisches Portfolio",
+  title: "Persönliches Portfolio",
   summary: "Ein dynamisches, minimalistisches Portfolio, das mit MDX, TailwindCSS und Next.js entwickelt wurde. Moderne Technologien kombiniert für ein responsives und benutzerfreundliches Design.",
   image: "/images/projects/minimalistisches-portfolio.png",
   author: "Pascal Heue",
