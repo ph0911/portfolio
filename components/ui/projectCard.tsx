@@ -81,12 +81,12 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
         )}
 
         {/* Gradient Overlay for text readability */}
-        <div className="absolute inset-0 bg-black/25 pointer-events-none" />
+        <div className="absolute inset-0  pointer-events-none" />
         
         {/* Content Container: Positioned at the bottom */}
         <div className="absolute inset-x-0 bottom-0 p-5 text-white z-10">
           <span className="block text-[10px] uppercase font-semibold tracking-[0.1em] text-white/70 mb-2">
-            Project
+            Dev, Design
           </span>
           <h3 className="text-xl font-semibold text-white leading-tight line-clamp-2 break-words">
             {title}
@@ -95,10 +95,11 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
             {tags && tags.length > 0 ? (
               <>
                 <span className={pillStyle}>{tags[0]}</span>
-                {tags.length > 1 && ( 
-                  <span className={pillStyle}>
-                    {tags.length === 2 ? tags[1] : `+${tags.length - 1} more`}
-                  </span>
+                {tags.length > 1 && (
+                  <span className={pillStyle}>{tags[1]}</span>
+                )}
+                {tags.length > 2 && (
+                  <span className={pillStyle}>+{tags.length - 2}</span>
                 )}
               </>
             ) : (
