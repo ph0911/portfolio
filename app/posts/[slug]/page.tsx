@@ -1,4 +1,4 @@
-import MDXContent from '@/components/mdx-content'
+import MDXContent from '@/components/blog/mdx-content'
 import { getPostBySlug, getPosts } from '@/lib/posts'
 import { formatDate } from '@/lib/utils'
 import { ChevronLeft, User, Calendar } from 'lucide-react'
@@ -7,7 +7,7 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import React from 'react'
 import ReadingProgress from '@/components/ui/reading-progress'
-import ModalWrapper from '@/components/ModalWrapper'
+import ModalWrapper from '@/components/utility/ModalWrapper'
 
 
 export async function generateStaticParams() {

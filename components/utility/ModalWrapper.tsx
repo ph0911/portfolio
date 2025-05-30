@@ -31,6 +31,7 @@ export default function ModalWrapper({
   // Make getParentPath memoized with useCallback
   const getParentPath = useCallback(() => {
     if (parentPath) return parentPath;
+    if (!pathname) return '/';
     const pathSegments = pathname.split('/');
     pathSegments.pop();
     return pathSegments.join('/') || '/';

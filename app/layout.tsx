@@ -2,11 +2,11 @@ import type { Metadata } from 'next'
 import { Montserrat, Cormorant_Infant } from 'next/font/google'
 import { cn } from '@/lib/utils'
 import './globals.css'
-import Providers from '@/components/providers'
+import Providers from '@/components/utility/providers'
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import { Analytics } from "@vercel/analytics/react"
-import Header from '@/components/header'
-import Footer from '@/components/footer'
+import Header from '@/components/layout/header'
+import Footer from '@/components/layout/footer'
 import dynamic from 'next/dynamic'
 import { FloatingDock } from '@/components/ui/floating-dock'
 import {
@@ -25,7 +25,7 @@ const montserrat = Montserrat({ subsets: ['latin'], variable: '--font-sans' })
 // })
 const cormorant = Cormorant_Infant({ weight: '500', subsets: ['latin'], variable: '--font-serif' })
 
-const MobileNavigationWrapper = dynamic(() => import('@/components/mobile-navigation-wrapper'), {
+const MobileNavigationWrapper = dynamic(() => import('@/components/layout/mobile-navigation-wrapper'), {
   ssr: false
 })
 

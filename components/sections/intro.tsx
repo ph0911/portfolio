@@ -1,9 +1,9 @@
 import Image from 'next/image'
 import authorImage from '@/public/images/authors/author-apple.png'
-import { FlipWords } from './ui/flip-words'
+import { FlipWords } from '../ui/flip-words'
 import Link from 'next/link'
 import { Mail, User } from 'lucide-react'
-import { ProfilePreload } from './preload'
+import { ProfilePreload } from '../utility/preload'
 
 export default function Intro() {
   return (

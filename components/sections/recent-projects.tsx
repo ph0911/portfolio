@@ -1,8 +1,9 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { BentoGrid, BentoGridItem } from '@/components/ui/bento-grid'
 import { getProjects } from '@/lib/projects'
 import Link from 'next/link'
 import { Briefcase } from 'lucide-react'
-import DesktopProjectCards from './desktopProjectCards'
+import DesktopProjectCards from '../projects/desktopProjectCards'
 
 
 export default async function RecentProjects({ showAllProjectsLink = true }) {
