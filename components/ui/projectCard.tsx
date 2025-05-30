@@ -7,6 +7,7 @@ import { motion } from 'framer-motion'
 import { Calendar } from 'lucide-react' // Using Calendar icon like in slug pages
 import { cn } from '@/lib/utils'
 import { ProjectMetadata } from '@/lib/projects'
+import { Badge } from './badge'
 
 interface ProjectCardProps {
   project: ProjectMetadata
@@ -31,8 +32,6 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
   const formattedDate = publishedAt 
     ? new Date(publishedAt).toLocaleDateString('de-DE', { month: 'short', year: 'numeric' }) 
     : null;
-
-  const pillStyle = "inline-block bg-white/10 text-white text-[10px] font-medium px-2 py-1 rounded-md backdrop-blur-sm hover:bg-white/20 transition-colors";
 
   return (
     <motion.div
@@ -94,16 +93,16 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
           <div className="mt-3 flex flex-wrap gap-2 items-center">
             {tags && tags.length > 0 ? (
               <>
-                <span className={pillStyle}>{tags[0]}</span>
+                <Badge variant="glass">{tags[0]}</Badge>
                 {tags.length > 1 && (
-                  <span className={pillStyle}>{tags[1]}</span>
+                  <Badge variant="glass">{tags[1]}</Badge>
                 )}
                 {tags.length > 2 && (
-                  <span className={pillStyle}>+{tags.length - 2}</span>
+                  <Badge variant="glass">+{tags.length - 2}</Badge>
                 )}
               </>
             ) : (
-              <span className={pillStyle}>View Project</span>
+              <Badge variant="glass">View Project</Badge>
             )}
           </div>
         </div>
