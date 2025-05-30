@@ -8,7 +8,7 @@ import { ProjectPreload } from '@/components/preload'
 
 export default async function ProjectsPage() {
   const allProjects = await getProjects()
-  const olderProjects = allProjects.slice(4)
+  const olderProjects = allProjects.slice(3)
 
   return (
     <section className='pb-24 pt-32'>

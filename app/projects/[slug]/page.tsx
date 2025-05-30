@@ -7,6 +7,7 @@ import { getProjectBySlug, getProjects } from '@/lib/projects'
 import { notFound } from 'next/navigation'
 import ReadingProgress from '@/components/ui/reading-progress'
 import ModalWrapper from '@/components/ModalWrapper'
+import { Badge } from '@/components/ui/badge'
 
 
 export async function generateStaticParams() {
@@ -26,7 +27,7 @@ export default async function Project({
     notFound()
   }
   const { metadata, content } = project
-  const { title, image, author, publishedAt, summary } = metadata
+  const { title, image, author, publishedAt, summary, tags } = metadata
 
   // Content that will be rendered both in modal and normal view
   const ProjectContent = () => (
@@ -62,6 +63,24 @@ export default async function Project({
               {summary}
             </p>
           </div>
+          
+          {/* Tags Section */}
+          {tags && tags.length > 0 && (
+            <div className="pt-2 overflow-hidden">
+              <div className="flex gap-2 overflow-x-auto scrollbar-hide pb-1">
+                {tags.map((tag, index) => (
+                  <Badge 
+                    key={index} 
+                    variant="secondary" 
+                    size="sm"
+                    className="text-[10px] font-medium flex-shrink-0"
+                  >
+                    {tag}
+                  </Badge>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       </header>
       <main className='prose prose-sm md:prose-base mt-8 md:mt-16 max-w-full dark:prose-invert'>
