@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { PostMetadata } from '@/lib/posts'
 import { formatDate } from '@/lib/utils'
 import Image from 'next/image'
-import { PostPreload } from './preload'
+import { PostPreload } from '../utility/preload'
 
 export default function Posts({ posts }: { posts: PostMetadata[] }) {
   return (

@@ -1,4 +1,4 @@
-import  ThemeToggle  from '@/components/theme-toggle'
+import  ThemeToggle  from '@/components/utility/theme-toggle'
 import { IconLayoutSidebarLeftExpand } from '@tabler/icons-react';
 
 import Link from 'next/link';

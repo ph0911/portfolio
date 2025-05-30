@@ -1,12 +1,12 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { formatDate } from '@/lib/utils'
-import MDXContent from '@/components/mdx-content'
+import MDXContent from '@/components/blog/mdx-content'
 import { ChevronLeft, User, Calendar } from 'lucide-react'
 import { getProjectBySlug, getProjects } from '@/lib/projects'
 import { notFound } from 'next/navigation'
 import ReadingProgress from '@/components/ui/reading-progress'
-import ModalWrapper from '@/components/ModalWrapper'
+import ModalWrapper from '@/components/utility/ModalWrapper'
 import { Badge } from '@/components/ui/badge'
 
 

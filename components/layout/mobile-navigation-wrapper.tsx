@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react'
 import { useSwipe } from '@/hooks/use-swipe'
-import MobileNavigation from '@/components/mobile-navigation'
+import MobileNavigation from '@/components/layout/mobile-navigation'
 import { useMobileViewportContext } from '@/contexts/mobile-viewport-context'
 
 interface MobileNavigationWrapperProps {

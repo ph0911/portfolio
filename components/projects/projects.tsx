@@ -3,7 +3,7 @@ import Link from 'next/link'
 
 import { ProjectMetadata } from '@/lib/projects'
 import { formatDate } from '@/lib/utils'
-import { ProjectPreload } from './preload'
+import { ProjectPreload } from '../utility/preload'
 
 
 export default function Projects({
