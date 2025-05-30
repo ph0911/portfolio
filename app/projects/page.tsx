@@ -1,10 +1,10 @@
-import RecentProjects from '@/components/recent-projects'
+import RecentProjects from '@/components/sections/recent-projects'
 import { getProjects } from '@/lib/projects'
 import Link from 'next/link'
 import { formatDate } from '@/lib/utils'
 import { IconChevronLeft } from '@tabler/icons-react'
 import Image from 'next/image'
-import { ProjectPreload } from '@/components/preload'
+import { ProjectPreload } from '@/components/utility/preload'
 
 export default async function ProjectsPage() {
   const allProjects = await getProjects()

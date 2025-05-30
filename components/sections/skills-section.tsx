@@ -2,7 +2,7 @@
 'use client'
 
 import React from 'react'
-import { InfiniteMovingCards } from './ui/infinite-moving-cards'
+import { InfiniteMovingCards } from '../ui/infinite-moving-cards'
 import Link from 'next/link'
 
 const webDevSkills = [

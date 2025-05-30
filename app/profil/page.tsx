@@ -1,6 +1,6 @@
 'use client';
 
-import ModalWrapper from '@/components/ModalWrapper';
+import ModalWrapper from '@/components/utility/ModalWrapper';
 import { Timeline } from '@/components/ui/timeline';
 import Image from 'next/image';
 import authorImage from '@/public/images/authors/author.jpg';

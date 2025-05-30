@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { getPosts } from '@/lib/posts'
-import Posts from '@/components/posts'
+import Posts from '@/components/blog/posts'
 import { FileText } from 'lucide-react'
 
 export default async function RecentPosts() {
