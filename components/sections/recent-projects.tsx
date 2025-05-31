@@ -1,20 +1,30 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { BentoGrid, BentoGridItem } from '@/components/ui/bento-grid'
-import { getProjects } from '@/lib/projects'
+import { getProjects, getFavoriteProjects } from '@/lib/projects'
 import Link from 'next/link'
 import { Briefcase } from 'lucide-react'
 import DesktopProjectCards from '../projects/desktopProjectCards'
+import MobileProjectCards from '../projects/mobileProjectCards'
 
 
 export default async function RecentProjects({ showAllProjectsLink = true }) {
   const projects = await getProjects(4)
+  const favoriteProjects = await getFavoriteProjects()
 
   return (
     <section className='pb-14'>
       <div>
         <h2 className='title mb-14'>Featured Work</h2>
         <div className='mb-14'>
-          <DesktopProjectCards />
+          {/* Desktop Version */}
+          <div className="hidden md:block">
+            <DesktopProjectCards />
+          </div>
+          
+          {/* Mobile Version */}
+          <div className="block md:hidden">
+            <MobileProjectCards projects={favoriteProjects} />
+          </div>
         </div>
         {showAllProjectsLink && (
           <Link
