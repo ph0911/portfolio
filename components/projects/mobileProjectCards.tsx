@@ -93,10 +93,11 @@ const MobileProjectCards: React.FC<MobileProjectCardsProps> = ({ projects }) => 
         <div className="relative w-full">
           {/* Previous Card - Always positioned left, ready for reverse swipe */}
           <motion.div
-            className="absolute top-0 z-10"
+            className="absolute top-0"
             style={{ 
               left: 'calc(-67vw - 1rem)', 
-              width: 'calc(67vw)' 
+              width: 'calc(67vw)',
+              zIndex: direction === 'prev' ? 30 : 10
             }}
             key={`prev-${currentIndex}`}
             initial={{ scale: 0.95, opacity: 0.7 }}
@@ -120,19 +121,23 @@ const MobileProjectCards: React.FC<MobileProjectCardsProps> = ({ projects }) => 
 
           {/* Active Card - Center position */}
           <motion.div
-            className="relative z-20"
-            style={{ width: 'calc(67vw)' }}
+            className="relative"
+            style={{ 
+              width: 'calc(67vw)',
+              zIndex: 20
+            }}
             key={`active-${currentIndex}`}
             initial={direction === 'next' ? 
-              { scale: 0.95, opacity: 0.7, x: 'calc(67vw + 1rem)' } : 
+              { scale: 0.95, opacity: 0.7, x: 'calc(67vw + 1rem)', zIndex: 30 } : 
               direction === 'prev' ? 
-              { scale: 0.95, opacity: 0.7, x: 'calc(-67vw - 1rem)' } :
-              { scale: 1, opacity: 1, x: 0 }
+              { scale: 0.95, opacity: 0.7, x: 'calc(-67vw - 1rem)', zIndex: 30 } :
+              { scale: 1, opacity: 1, x: 0, zIndex: 20 }
             }
             animate={{ 
               scale: 1, 
               opacity: 1, 
               x: 0,
+              zIndex: 20
             }}
             transition={{
               type: "spring",
@@ -150,10 +155,11 @@ const MobileProjectCards: React.FC<MobileProjectCardsProps> = ({ projects }) => 
 
           {/* Next Card Preview - Right position */}
           <motion.div
-            className="absolute top-0 z-10"
+            className="absolute top-0"
             style={{ 
               left: 'calc(67vw + 1rem)', 
-              width: 'calc(67vw)' 
+              width: 'calc(67vw)',
+              zIndex: direction === 'next' ? 30 : 10
             }}
             key={`next-${currentIndex}`}
             initial={{ scale: 0.95, opacity: 0.7 }}

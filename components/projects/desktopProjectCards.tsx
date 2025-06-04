@@ -17,15 +17,15 @@ const DesktopProjectCards: React.FC = async () => {
     <div className="w-full">
       <div className="max-w-6xl mx-auto">
       {/* Grid Layout für Desktop */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+      <div className="grid grid-cols-3 gap-5">
         {favoriteProjects.map((project, index) => (
         <div 
           key={project.slug} 
           className={`flex flex-col items-center space-y-3 ${
         index % 3 === 1 && favoriteProjects.length >= 3 ? 
-        "lg:transform lg:scale-105 lg:z-10" : 
+        "transform scale-105 z-10" : 
         (index % 3 !== 1 && favoriteProjects.length >= 3 ? 
-        "lg:transform lg:scale-95" : "")
+        "transform scale-95" : "")
           }`}
         >
           <ProjectCard 
