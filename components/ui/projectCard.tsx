@@ -36,7 +36,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
   return (
     <motion.div
       className={cn(
-        "relative w-full max-w-sm aspect-[3/4] mx-auto",
+        "relative w-full max-w-xs aspect-[3/4] mx-auto",
         "rounded-3xl overflow-hidden shadow-xl group cursor-pointer",
         className
       )}
@@ -73,7 +73,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
             src={image}
             alt={title || 'Project image'}
             fill
-            sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 400px"
+            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 320px"
             className="object-cover object-center transition-transform duration-500 group-hover:scale-105"
             priority={isActive}
           />
