@@ -7,5 +7,5 @@
     "semi": false,
     "proseWrap": "always",
     "printWidth": 80,
-    "plugins": ["prettier-plugin-tailwindess"]
+    "plugins": ["prettier-plugin-tailwindcss"]
 }
