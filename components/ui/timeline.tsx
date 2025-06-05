@@ -67,7 +67,8 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
     if (inModal && !isModalActive) return;
 
     const threshold = 1 / data.length;
-    const centeredIndex = Math.floor((latest + threshold / 2) / threshold);
+    const CENTERING_OFFSET = threshold / 2; // Offset to center the active index calculation
+    const centeredIndex = Math.floor((latest + CENTERING_OFFSET) / threshold);
     const newIndex = Math.min(centeredIndex, data.length - 1);
     if (newIndex >= 0) {
       setActiveIndex(newIndex);
@@ -75,7 +76,7 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
   });
   
   // Animation transforms
-  const heightTransform = useTransform(smoothProgress, [0, 0.99], [0, height]);
+  const heightTransform = useTransform(smoothProgress, [0, 1], [0, height]);
   const opacityTransform = useTransform(smoothProgress, [0, 0.1], [0, 1]);
 
   return (
