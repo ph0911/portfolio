@@ -16,8 +16,8 @@ interface TimelineEntry {
 }
 
 export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
-  const ref = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
   const [height, setHeight] = useState(0);
   const [activeIndex, setActiveIndex] = useState(0); // Default to first item as active
   
@@ -28,17 +28,17 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
 
   // Calculate accurate height based on content and observe changes
   useEffect(() => {
-    if (!ref.current) return;
+    if (!containerRef.current) return;
 
     const updateHeight = () => {
-      const rect = ref.current!.getBoundingClientRect();
+      const rect = containerRef.current!.getBoundingClientRect();
       setHeight(rect.height);
     };
 
     updateHeight();
 
     const resizeObserver = new ResizeObserver(updateHeight);
-    resizeObserver.observe(ref.current);
+    resizeObserver.observe(containerRef.current);
     window.addEventListener("resize", updateHeight);
 
     return () => {
@@ -67,7 +67,7 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
     if (inModal && !isModalActive) return;
 
     const threshold = 1 / data.length;
-    const CENTERING_OFFSET = threshold / 2; // Offset to center the active index calculation
+      <div ref={contentRef} className="relative max-w-7xl mx-auto">
     const centeredIndex = Math.floor((latest + CENTERING_OFFSET) / threshold);
     const newIndex = Math.min(centeredIndex, data.length - 1);
     if (newIndex >= 0) {
