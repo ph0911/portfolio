@@ -3,6 +3,7 @@ import {
   useMotionValueEvent,
   useScroll,
   useTransform,
+  useSpring,
   motion,
 } from "framer-motion";
 import React, { useEffect, useRef, useState } from "react";
@@ -25,37 +26,57 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
   const inModal = modalContext?.isInsideModal ?? false;
   const isModalActive = modalContext?.isActive ?? false;
 
-  // Calculate accurate height based on content
+  // Calculate accurate height based on content and observe changes
   useEffect(() => {
-    if (ref.current) {
-      const rect = ref.current.getBoundingClientRect();
+    if (!ref.current) return;
+
+    const updateHeight = () => {
+      const rect = ref.current!.getBoundingClientRect();
       setHeight(rect.height);
-    }
-  }, [ref]);
+    };
+
+    updateHeight();
+
+    const resizeObserver = new ResizeObserver(updateHeight);
+    resizeObserver.observe(ref.current);
+    window.addEventListener("resize", updateHeight);
+
+    return () => {
+      resizeObserver.disconnect();
+      window.removeEventListener("resize", updateHeight);
+    };
+  }, []);
   
   // Use different scroll offsets based on modal state
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: inModal 
-      ? ["start start", "end start"] // More aggressive offset for modal
-      : ["start 30%", "end 50%"],    // Original offset for regular page
+    offset: inModal
+      ? ["start start", "end end"] // Ensure full progress inside modal
+      : ["start 30%", "end end"],   // Reach 1 when bottom hits viewport end
+  });
+
+  // Smooth out progress for animations
+  const smoothProgress = useSpring(scrollYProgress, {
+    stiffness: 80,
+    damping: 20,
   });
 
   // Handle scroll animation differently based on modal context
-  useMotionValueEvent(scrollYProgress, "change", (latest) => {
+  useMotionValueEvent(smoothProgress, "change", (latest) => {
     // Skip animation updates if in an inactive modal
     if (inModal && !isModalActive) return;
-    
+
     const threshold = 1 / data.length;
-    const newIndex = Math.floor(latest / threshold);
-    if (newIndex >= 0 && newIndex < data.length) {
+    const centeredIndex = Math.floor((latest + threshold / 2) / threshold);
+    const newIndex = Math.min(centeredIndex, data.length - 1);
+    if (newIndex >= 0) {
       setActiveIndex(newIndex);
     }
   });
   
   // Animation transforms
-  const heightTransform = useTransform(scrollYProgress, [0, 1], [0, height]);
-  const opacityTransform = useTransform(scrollYProgress, [0, 0.1], [0, 1]);
+  const heightTransform = useTransform(smoothProgress, [0, 0.99], [0, height]);
+  const opacityTransform = useTransform(smoothProgress, [0, 0.1], [0, 1]);
 
   return (
     <div 
@@ -97,7 +118,7 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
             }}
             transition={{ duration: 0.5 }}
           >
-            <div className="sticky flex flex-col items-start top-32 self-start z-10">
+            <div className="sticky flex flex-col items-start top-24 md:top-32 self-start z-10">
               {/* Dot indicator with original size */}
               <motion.div 
                 className="h-2 w-2 absolute left-0 top-2 rounded-full bg-black dark:bg-white z-20"
