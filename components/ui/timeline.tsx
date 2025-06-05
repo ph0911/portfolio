@@ -28,17 +28,17 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
 
   // Calculate accurate height based on content and observe changes
   useEffect(() => {
-    if (!containerRef.current) return;
+    if (!contentRef.current) return;
 
     const updateHeight = () => {
-      const rect = containerRef.current!.getBoundingClientRect();
+      const rect = contentRef.current!.getBoundingClientRect();
       setHeight(rect.height);
     };
 
     updateHeight();
 
     const resizeObserver = new ResizeObserver(updateHeight);
-    resizeObserver.observe(containerRef.current);
+    resizeObserver.observe(contentRef.current);
     window.addEventListener("resize", updateHeight);
 
     return () => {
@@ -130,7 +130,7 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
                 transition={{ duration: 0.3 }}
               />
             </div>
-            <div className="relative pl-6 w-full">
+};
               <div className="mb-3">
                 <h3 className="text-lg font-medium text-foreground">
                   {item.title}
