@@ -45,10 +45,11 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
     // Skip animation updates if in an inactive modal
     if (inModal && !isModalActive) return;
-    
+
     const threshold = 1 / data.length;
-    const newIndex = Math.floor(latest / threshold);
-    if (newIndex >= 0 && newIndex < data.length) {
+    const centeredIndex = Math.floor((latest + threshold / 2) / threshold);
+    const newIndex = Math.min(centeredIndex, data.length - 1);
+    if (newIndex >= 0) {
       setActiveIndex(newIndex);
     }
   });
