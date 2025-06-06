@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState, useCallback } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion } from 'framer-motion'
 import ProjectCard from '@/components/ui/projectCard'
 import { ProjectMetadata } from '@/lib/projects'
 
