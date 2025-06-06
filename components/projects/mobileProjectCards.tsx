@@ -81,10 +81,10 @@ const MobileProjectCards: React.FC<MobileProjectCardsProps> = ({ projects }) => 
   const prevProject = projects[(currentIndex - 1 + projects.length) % projects.length]
 
   return (
-    <div className="w-full relative">
+    <div className="w-full relative overflow-x-hidden">
       {/* Card Container */}
-      <div 
-        className="relative h-auto"
+      <div
+        className="relative h-auto overflow-x-hidden"
         onTouchStart={onTouchStart}
         onTouchMove={onTouchMove}
         onTouchEnd={onTouchEnd}
