@@ -57,10 +57,9 @@ function CardRotate({ children, onSendToBack, sensitivity }: CardRotateProps) {
 interface StackProjectCardProps {
   project: ProjectMetadata;
   isTopCard: boolean;
-  cardDimensions: { width: number; height: number };
 }
 
-function StackProjectCard({ project, isTopCard, cardDimensions }: StackProjectCardProps) {
+function StackProjectCard({ project, isTopCard }: StackProjectCardProps) {
   const formattedDate = project.publishedAt 
     ? new Date(project.publishedAt).toLocaleDateString('de-DE', { month: 'short', year: 'numeric' }) 
     : null;
@@ -255,14 +254,15 @@ export default function Stack({
                 <StackProjectCard 
                   project={card.project}
                   isTopCard={isTopCard}
-                  cardDimensions={finalCardDimensions}
                 />
               ) : (
                 // Original Bild-basierte Karte
-                <img
+                <Image
                   src={card.img}
                   alt={`card-${card.id}`}
-                  className="w-full h-full object-cover pointer-events-none"
+                  fill
+                  className="object-cover pointer-events-none"
+                  sizes="(max-width: 768px) 100vw, 320px"
                 />
               )}
             </motion.div>
