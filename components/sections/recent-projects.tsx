@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { Briefcase } from 'lucide-react'
 import DesktopProjectCards from '../projects/desktopProjectCards'
 import MobileProjectCards from '../projects/mobileProjectCards'
-
+import StackProjectCards from '../projects/stackProjectCards'
 
 export default async function RecentProjects({ showAllProjectsLink = true }) {
   const projects = await getProjects(4)
@@ -23,7 +23,16 @@ export default async function RecentProjects({ showAllProjectsLink = true }) {
           
           {/* Mobile Version */}
           <div className="block md:hidden">
-            <MobileProjectCards projects={favoriteProjects} />
+            {/* Original MobileProjectCards for comparison - uncomment to test */}
+            {/* <MobileProjectCards projects={favoriteProjects} /> */}
+            
+            {/* New Stack-based Project Cards - enhanced integration */}
+            <StackProjectCards 
+              projects={favoriteProjects}
+              sensitivity={150}
+              sendToBackOnClick={true}
+              randomRotation={false}
+            />
           </div>
         </div>
         {showAllProjectsLink && (
@@ -36,6 +45,7 @@ export default async function RecentProjects({ showAllProjectsLink = true }) {
           </Link>
         )}
       </div>
+  
     </section>
   )
 }
