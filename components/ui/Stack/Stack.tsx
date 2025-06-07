@@ -1,16 +1,8 @@
 'use client';
 import { motion, useMotionValue, useTransform } from "framer-motion";
 import { useState } from "react";
-import Image from 'next/image';
 import { ProjectMetadata } from '@/lib/projects';
 import ProjectCard from '@/components/ui/projectCard';
-
-// Type für Karten-Daten 
-type CardData = {
-  id: number;
-  img: string;
-  project?: ProjectMetadata;
-};
 
 interface CardRotateProps {
   children: React.ReactNode;
@@ -52,49 +44,25 @@ function CardRotate({ children, onSendToBack, sensitivity }: CardRotateProps) {
 }
 
 interface StackProps {
+  projectsData: ProjectMetadata[];
   randomRotation?: boolean;
   sensitivity?: number;
-  cardDimensions?: { width: number; height: number };
   sendToBackOnClick?: boolean;
-  cardsData?: CardData[];
-  projectsData?: ProjectMetadata[];
   animationConfig?: { stiffness: number; damping: number };
-  useProjectCards?: boolean;
 }
 
 export default function Stack({
+  projectsData,
   randomRotation = false,
   sensitivity = 200,
-  cardDimensions = { width: 208, height: 208 },
-  cardsData = [],
-  projectsData = [],
-  animationConfig = { stiffness: 260, damping: 20 },
   sendToBackOnClick = false,
-  useProjectCards = false
+  animationConfig = { stiffness: 400, damping: 40 }
 }: StackProps) {
-  // Bestimme welche Daten verwendet werden sollen
-  const shouldUseProjects = useProjectCards && projectsData.length > 0;
-  
-  // Für ProjectCards: Verwende optimierte Dimensionen (3:4 Ratio wie original ProjectCard)
-  const finalCardDimensions = shouldUseProjects 
-    ? { width: 280, height: 373 } 
-    : cardDimensions;
-
-  const [cards, setCards] = useState<CardData[]>(
-    shouldUseProjects
-      ? projectsData.map((project, index) => ({ 
-          id: index + 1, 
-          img: project.image || '', 
-          project 
-        }))
-      : cardsData.length
-      ? cardsData
-      : [
-        { id: 1, img: "https://images.unsplash.com/photo-1480074568708-e7b720bb3f09?q=80&w=500&auto=format" },
-        { id: 2, img: "https://images.unsplash.com/photo-1449844908441-8829872d2607?q=80&w=500&auto=format" },
-        { id: 3, img: "https://images.unsplash.com/photo-1452626212852-811d58933cae?q=80&w=500&auto=format" },
-        { id: 4, img: "https://images.unsplash.com/photo-1572120360610-d971b9d7767c?q=80&w=500&auto=format" }
-      ]
+  const [cards, setCards] = useState(
+    projectsData.map((project, index) => ({ 
+      id: index + 1, 
+      project 
+    }))
   );
 
   const sendToBack = (id: number) => {
@@ -107,93 +75,67 @@ export default function Stack({
     });
   };
 
+  // ProjectCard Dimensionen (3:4 Ratio)
+  const cardDimensions = { width: 320, height: 427 };
+
   return (
     <div className="flex flex-col items-center gap-2">
       <div
         className="relative"
         style={{
-          width: finalCardDimensions.width,
-          height: finalCardDimensions.height,
+          width: cardDimensions.width,
+          height: cardDimensions.height,
           perspective: 600,
         }}
       >
-      {cards.map((card, index) => {
-        // Oberste Karte (index === cards.length - 1) liegt gerade
-        // Untere Karten fächern sich nach rechts auf
-        const cardPosition = cards.length - index - 1; // 0 = oberste Karte, höhere Werte = tiefer im Stapel
-        const rotationAngle = cardPosition * 3; // Jede Karte 3° weiter gedreht
-        const offsetX = cardPosition * 8; // Jede Karte 8px weiter nach rechts
-        const offsetY = cardPosition * 2; // Leichter Y-Offset für natürlicheren Look
-        
-        const randomRotate = randomRotation
-          ? Math.random() * 6 - 3 // Reduziert für sauberen Look
-          : 0;
+        {cards.map((card, index) => {
+          const cardPosition = cards.length - index - 1;
+          const rotationAngle = cardPosition * 3;
+          const offsetX = cardPosition * 8;
+          const offsetY = cardPosition * 2;
+          const randomRotate = randomRotation ? Math.random() * 6 - 3 : 0;
+          const isTopCard = index === cards.length - 1;
 
-        // Für ProjectCards: Bestimme ob es die oberste/aktive Karte ist
-        const isTopCard = index === cards.length - 1;
-
-        return (
-          <CardRotate
-            key={card.id}
-            onSendToBack={() => sendToBack(card.id)}
-            sensitivity={sensitivity}
-          >
-            <motion.div
-              className={shouldUseProjects 
-                ? "rounded-3xl overflow-hidden shadow-xl" // Schatten wie original ProjectCard
-                : "rounded-2xl overflow-hidden border-4 border-white" // Original styling bleibt
-              }
-              onClick={() => sendToBackOnClick && sendToBack(card.id)}
-              animate={{
-                rotateZ: shouldUseProjects 
-                  ? rotationAngle + randomRotate  // Kontrollierte Auffächerung nach rechts
-                  : (cards.length - index - 1) * 4 + randomRotate, // Original für normale Cards
-                scale: shouldUseProjects 
-                  ? 1 - cardPosition * 0.02 // Minimal scale difference für ProjectCards
-                  : 1 + index * 0.04 - cards.length * 0.04, // Original für normale Cards  
-                transformOrigin: "center center",
-                x: shouldUseProjects ? offsetX : 0,
-                y: shouldUseProjects ? offsetY : 0,
-                zIndex: index,
-              }}
-              initial={false}
-              transition={{
-                type: "spring",
-                stiffness: shouldUseProjects ? 400 : animationConfig.stiffness, // Schnellere Animation für ProjectCards
-                damping: shouldUseProjects ? 40 : animationConfig.damping,
-              }}
-              style={{
-                width: finalCardDimensions.width,
-                height: finalCardDimensions.height,
-                willChange: 'transform', // Performance-Optimierung
-                // Subtile, gestaffelte Schatten für Tiefeneffekt
-                boxShadow: shouldUseProjects 
-                  ? `0 ${cardPosition * 2 + 4}px ${cardPosition * 4 + 8}px rgba(0, 0, 0, ${0.08 + cardPosition * 0.02}), 0 ${cardPosition + 2}px ${cardPosition * 2 + 4}px rgba(0, 0, 0, 0.04)`
-                  : undefined
-              }}
+          return (
+            <CardRotate
+              key={card.id}
+              onSendToBack={() => sendToBack(card.id)}
+              sensitivity={sensitivity}
             >
-              {shouldUseProjects && card.project ? (
-                // Zentrale ProjectCard mit Stack-Variant
+              <motion.div
+                className="rounded-3xl overflow-hidden shadow-xl"
+                onClick={() => sendToBackOnClick && sendToBack(card.id)}
+                animate={{
+                  rotateZ: rotationAngle + randomRotate,
+                  scale: 1 - cardPosition * 0.02,
+                  transformOrigin: "center center",
+                  x: offsetX,
+                  y: offsetY,
+                  zIndex: index,
+                }}
+                initial={false}
+                transition={{
+                  type: "spring",
+                  stiffness: animationConfig.stiffness,
+                  damping: animationConfig.damping,
+                }}
+                style={{
+                  width: cardDimensions.width,
+                  height: cardDimensions.height,
+                  willChange: 'transform',
+                  boxShadow: `0 ${cardPosition * 2 + 4}px ${cardPosition * 4 + 8}px rgba(0, 0, 0, ${0.08 + cardPosition * 0.02}), 0 ${cardPosition + 2}px ${cardPosition * 2 + 4}px rgba(0, 0, 0, 0.04)`
+                }}
+              >
                 <ProjectCard 
                   project={card.project}
                   isActive={isTopCard}
                   variant="stack"
                   enableNavigation={isTopCard}
                 />
-              ) : (
-                // Original Bild-basierte Karte
-                <Image
-                  src={card.img}
-                  alt={`card-${card.id}`}
-                  fill
-                  className="object-cover pointer-events-none"
-                  sizes="(max-width: 768px) 100vw, 320px"
-                />
-              )}
-            </motion.div>
-          </CardRotate>
-        );
-      })}
+              </motion.div>
+            </CardRotate>
+          );
+        })}
       </div>
     </div>
   );
