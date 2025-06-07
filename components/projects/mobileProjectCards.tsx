@@ -1,11 +1,8 @@
-'use client';
-
 import React from 'react';
 import Stack from '@/components/ui/Stack/Stack';
-import { ProjectMetadata } from '@/lib/projects';
+import { getFavoriteProjects } from '@/lib/projects';
 
 interface MobileProjectCardsProps {
-  projects: ProjectMetadata[];
   sensitivity?: number;
   randomRotation?: boolean;
   sendToBackOnClick?: boolean;
@@ -23,18 +20,20 @@ interface MobileProjectCardsProps {
  * - Uses the centralized ProjectCard design 
  * - Optimized for mobile touch interactions
  * - Clean stack-based card management
+ * - Loads favorite projects data internally (consistent with DesktopProjectCards)
  */
-const MobileProjectCards: React.FC<MobileProjectCardsProps> = ({
-  projects,
+const MobileProjectCards: React.FC<MobileProjectCardsProps> = async ({
   sensitivity = 150,
   randomRotation = false,
   sendToBackOnClick = true,
   className = ""
 }) => {
-  if (!projects || projects.length === 0) {
+  const favoriteProjects = await getFavoriteProjects();
+
+  if (!favoriteProjects || favoriteProjects.length === 0) {
     return (
       <div className="flex justify-center items-center p-8">
-        <p className="text-muted-foreground">No projects available</p>
+        <p className="text-muted-foreground">Keine Favoriten-Projekte gefunden.</p>
       </div>
     );
   }
@@ -42,8 +41,7 @@ const MobileProjectCards: React.FC<MobileProjectCardsProps> = ({
   return (
     <div className={`flex justify-center ${className}`}>
       <Stack 
-        projectsData={projects}
-        useProjectCards={true}
+        projectsData={favoriteProjects}
         sensitivity={sensitivity}
         sendToBackOnClick={sendToBackOnClick}
         randomRotation={randomRotation}
