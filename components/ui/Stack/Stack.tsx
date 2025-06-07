@@ -2,12 +2,10 @@
 import { motion, useMotionValue, useTransform } from "framer-motion";
 import { useState } from "react";
 import Image from 'next/image';
-import Link from 'next/link';
-import { Calendar } from 'lucide-react';
-import { Badge } from '@/components/ui/badge';
 import { ProjectMetadata } from '@/lib/projects';
+import ProjectCard from '@/components/ui/projectCard';
 
-// Erweiterte Card-Type für beide Verwendungen
+// Type für Karten-Daten 
 type CardData = {
   id: number;
   img: string;
@@ -50,81 +48,6 @@ function CardRotate({ children, onSendToBack, sensitivity }: CardRotateProps) {
     >
       {children}
     </motion.div>
-  );
-}
-
-// Enhanced Project Card component specifically for Stack usage
-interface StackProjectCardProps {
-  project: ProjectMetadata;
-  isTopCard: boolean;
-}
-
-function StackProjectCard({ project, isTopCard }: StackProjectCardProps) {
-  const formattedDate = project.publishedAt 
-    ? new Date(project.publishedAt).toLocaleDateString('de-DE', { month: 'short', year: 'numeric' }) 
-    : null;
-
-  return (
-    <div className="relative w-full h-full rounded-3xl overflow-hidden group">
-      {/* Background Image */}
-      {project.image && (
-        <Image
-          src={project.image}
-          alt={project.title || 'Project image'}
-          fill
-          sizes="(max-width: 768px) 100vw, 320px"
-          className="object-cover object-center transition-transform duration-300 group-hover:scale-105"
-          priority={isTopCard}
-        />
-      )}
-
-      {/* Top Information Bar */}
-      <div className="absolute top-0 left-0 right-0 p-4 flex justify-between items-center text-white/80 text-xs z-20">
-        {formattedDate && (
-          <div className="flex items-center gap-1">
-            <Calendar size={12} />
-            <span>{formattedDate}</span>
-          </div>
-        )}
-      </div>
-
-      {/* Gradient Overlay for better text readability */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent pointer-events-none" />
-      
-      {/* Content Container */}
-      <div className="absolute inset-x-0 bottom-0 p-4 text-white z-10">
-        <span className="block text-[9px] uppercase font-semibold tracking-[0.1em] text-white/70 mb-2">
-          Dev, Design
-        </span>
-        <h3 className="text-lg font-semibold text-white leading-tight line-clamp-2 break-words mb-3">
-          {project.title}
-        </h3>
-        <div className="flex flex-wrap gap-1.5 items-center">
-          {project.tags && project.tags.length > 0 ? (
-            <>
-              <Badge variant="glass" size="sm">{project.tags[0]}</Badge>
-              {project.tags.length > 1 && (
-                <Badge variant="glass" size="sm">{project.tags[1]}</Badge>
-              )}
-              {project.tags.length > 2 && (
-                <Badge variant="glass" size="sm">+{project.tags.length - 2}</Badge>
-              )}
-            </>
-          ) : (
-            <Badge variant="glass" size="sm">View Project</Badge>
-          )}
-        </div>
-      </div>
-
-      {/* Link overlay for navigation */}
-      {isTopCard && (
-        <Link 
-          href={`/projects/${project.slug}`} 
-          className="absolute inset-0 z-30"
-          aria-label={`View ${project.title} project`}
-        />
-      )}
-    </div>
   );
 }
 
@@ -250,10 +173,12 @@ export default function Stack({
               }}
             >
               {shouldUseProjects && card.project ? (
-                // Enhanced ProjectCard with full design integration
-                <StackProjectCard 
+                // Zentrale ProjectCard mit Stack-Variant
+                <ProjectCard 
                   project={card.project}
-                  isTopCard={isTopCard}
+                  isActive={isTopCard}
+                  variant="stack"
+                  enableNavigation={isTopCard}
                 />
               ) : (
                 // Original Bild-basierte Karte
