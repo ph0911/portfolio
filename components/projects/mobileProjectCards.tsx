@@ -1,213 +1,57 @@
-'use client'
-
-import React, { useState, useCallback } from 'react'
-import { motion } from 'framer-motion'
-import ProjectCard from '@/components/ui/projectCard'
-import { ProjectMetadata } from '@/lib/projects'
+import React from 'react';
+import Stack from '@/components/ui/Stack/Stack';
+import { getFavoriteProjects } from '@/lib/projects';
 
 interface MobileProjectCardsProps {
-  projects: ProjectMetadata[]
+  sensitivity?: number;
+  randomRotation?: boolean;
+  sendToBackOnClick?: boolean;
+  className?: string;
 }
 
-const MobileProjectCards: React.FC<MobileProjectCardsProps> = ({ projects }) => {
-  const [currentIndex, setCurrentIndex] = useState(0)
-  const [touchStart, setTouchStart] = useState<number | null>(null)
-  const [touchEnd, setTouchEnd] = useState<number | null>(null)
-  const [isAnimating, setIsAnimating] = useState(false)
-  const [direction, setDirection] = useState<'next' | 'prev' | null>(null)
+/**
+ * Mobile Project Cards Component (Stack-based)
+ * 
+ * This component integrates the Stack functionality with ProjectCard design,
+ * creating a swipeable stack of project cards optimized for mobile interactions.
+ * 
+ * Features:
+ * - Preserves all Stack swipe functionality
+ * - Uses the centralized ProjectCard design 
+ * - Optimized for mobile touch interactions
+ * - Clean stack-based card management
+ * - Loads favorite projects data internally (consistent with DesktopProjectCards)
+ */
+const MobileProjectCards: React.FC<MobileProjectCardsProps> = async ({
+  sensitivity = 150,
+  randomRotation = false,
+  sendToBackOnClick = true,
+  className = ""
+}) => {
+  const favoriteProjects = await getFavoriteProjects();
 
-  const minSwipeDistance = 50
-
-  const nextSlide = useCallback(() => {
-    if (isAnimating) return
-    setIsAnimating(true)
-    setDirection('next')
-    setCurrentIndex((prevIndex) => 
-      prevIndex === projects.length - 1 ? 0 : prevIndex + 1
-    )
-    setTimeout(() => {
-      setIsAnimating(false)
-      setDirection(null)
-    }, 600)
-  }, [projects.length, isAnimating])
-
-  const prevSlide = useCallback(() => {
-    if (isAnimating) return
-    setIsAnimating(true)
-    setDirection('prev')
-    setCurrentIndex((prevIndex) => 
-      prevIndex === 0 ? projects.length - 1 : prevIndex - 1
-    )
-    setTimeout(() => {
-      setIsAnimating(false)
-      setDirection(null)
-    }, 600)
-  }, [projects.length, isAnimating])
-
-  const onTouchStart = (e: React.TouchEvent) => {
-    setTouchEnd(null)
-    setTouchStart(e.targetTouches[0].clientX)
-  }
-
-  const onTouchMove = (e: React.TouchEvent) => {
-    setTouchEnd(e.targetTouches[0].clientX)
-  }
-
-  const onTouchEnd = useCallback(() => {
-    if (!touchStart || !touchEnd) return
-    const distance = touchStart - touchEnd
-    const isLeftSwipe = distance > minSwipeDistance
-    const isRightSwipe = distance < -minSwipeDistance
-    
-    if (isLeftSwipe) {
-      nextSlide()
-    }
-    if (isRightSwipe) {
-      prevSlide()
-    }
-  }, [touchStart, touchEnd, nextSlide, prevSlide])
-
-  if (projects.length === 0) {
+  if (!favoriteProjects || favoriteProjects.length === 0) {
     return (
-      <div className="flex justify-center items-center py-12">
-        <div className="text-muted-foreground">Keine Favoriten-Projekte gefunden.</div>
+      <div className="flex justify-center items-center p-8">
+        <p className="text-muted-foreground">Keine Favoriten-Projekte gefunden.</p>
       </div>
-    )
+    );
   }
-
-  // Get current, next and previous projects for seamless loop
-  const currentProject = projects[currentIndex]
-  const nextProject = projects[(currentIndex + 1) % projects.length]
-  const prevProject = projects[(currentIndex - 1 + projects.length) % projects.length]
 
   return (
-    <div className="w-full relative">
-      {/* Card Container */}
-      <div 
-        className="relative h-auto"
-        onTouchStart={onTouchStart}
-        onTouchMove={onTouchMove}
-        onTouchEnd={onTouchEnd}
-      >
-        {/* Card Stack Container */}
-        <div className="relative w-full">
-          {/* Previous Card - Always positioned left, ready for reverse swipe */}
-          <motion.div
-            className="absolute top-0"
-            style={{ 
-              left: 'calc(-67vw - 1rem)', 
-              width: 'calc(67vw)',
-              zIndex: direction === 'prev' ? 30 : 10
-            }}
-            key={`prev-${currentIndex}`}
-            initial={{ scale: 0.95, opacity: 0.7 }}
-            animate={{ 
-              scale: 0.95, 
-              opacity: 0.7,
-            }}
-            transition={{
-              type: "spring",
-              stiffness: 300,
-              damping: 30,
-              duration: 0.5
-            }}
-          >
-            <ProjectCard 
-              project={prevProject} 
-              isActive={false}
-              className="w-full"
-            />
-          </motion.div>
-
-          {/* Active Card - Center position */}
-          <motion.div
-            className="relative"
-            style={{ 
-              width: 'calc(67vw)',
-              zIndex: 20
-            }}
-            key={`active-${currentIndex}`}
-            initial={direction === 'next' ? 
-              { scale: 0.95, opacity: 0.7, x: 'calc(67vw + 1rem)', zIndex: 30 } : 
-              direction === 'prev' ? 
-              { scale: 0.95, opacity: 0.7, x: 'calc(-67vw - 1rem)', zIndex: 30 } :
-              { scale: 1, opacity: 1, x: 0, zIndex: 20 }
-            }
-            animate={{ 
-              scale: 1, 
-              opacity: 1, 
-              x: 0,
-              zIndex: 20
-            }}
-            transition={{
-              type: "spring",
-              stiffness: 300,
-              damping: 30,
-              duration: 0.5
-            }}
-          >
-            <ProjectCard 
-              project={currentProject} 
-              isActive={true}
-              className="w-full"
-            />
-          </motion.div>
-
-          {/* Next Card Preview - Right position */}
-          <motion.div
-            className="absolute top-0"
-            style={{ 
-              left: 'calc(67vw + 1rem)', 
-              width: 'calc(67vw)',
-              zIndex: direction === 'next' ? 30 : 10
-            }}
-            key={`next-${currentIndex}`}
-            initial={{ scale: 0.95, opacity: 0.7 }}
-            animate={{ 
-              scale: 0.95, 
-              opacity: 0.7,
-            }}
-            transition={{
-              type: "spring",
-              stiffness: 300,
-              damping: 30,
-              duration: 0.5
-            }}
-          >
-            <ProjectCard 
-              project={nextProject} 
-              isActive={false}
-              className="w-full"
-            />
-          </motion.div>
-        </div>
-      </div>
-
-      {/* Page Indicators (Dots) - Centered under the active card */}
-      {projects.length > 1 && (
-        <div 
-          className="flex justify-center mt-8 space-x-3"
-          style={{ 
-            marginLeft: 0,
-            width: 'calc(67vw)',
-          }}
-        >
-          {projects.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => !isAnimating && setCurrentIndex(index)}
-              className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                index === currentIndex 
-                  ? 'bg-foreground' 
-                  : 'bg-muted-foreground/30 hover:bg-muted-foreground/50'
-              }`}
-              aria-label={`Go to slide ${index + 1}`}
-            />
-          ))}
-        </div>
-      )}
+    <div className={`flex justify-center ${className}`}>
+      <Stack 
+        projectsData={favoriteProjects}
+        sensitivity={sensitivity}
+        sendToBackOnClick={sendToBackOnClick}
+        randomRotation={randomRotation}
+        animationConfig={{
+          stiffness: 400,
+          damping: 40
+        }}
+      />
     </div>
-  )
-}
+  );
+};
 
-export default MobileProjectCards
+export default MobileProjectCards;

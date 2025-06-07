@@ -7,7 +7,7 @@ import SkillsSection from '@/components/sections/skills-section'
 
 export default function Home() {
   return (
-    <section className='py-24'>
+    <section className='pt-24 pb-16'>
       <div className='container max-w-3xl'>
         <Intro />
         <SkillsSection />
