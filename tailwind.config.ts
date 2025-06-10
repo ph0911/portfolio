@@ -104,6 +104,18 @@ const config: Config = {
         'golden-large': '61.8%',
         'golden-small': '38.2%',
       },
+      
+      // Liquid Glass enhancements
+      backdropBlur: {
+        'glass': '24px',
+        'glass-subtle': '16px',
+        'glass-intense': '32px',
+      },
+      backdropSaturate: {
+        'glass': '180%',
+        'glass-subtle': '110%',
+        'glass-intense': '200%',
+      },
     }
   },
   plugins: [
