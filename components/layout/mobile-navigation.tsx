@@ -11,7 +11,7 @@ interface MobileNavigationProps {
   setOpen: (open: boolean) => void;
 }
 
-const MobileNavigation: React.FC<MobileNavigationProps> = ({ open, setOpen }) => {
+export default function MobileNavigation({ open, setOpen }: MobileNavigationProps) {
   return (
     <div className="md:hidden">
       <Sheet open={open} onOpenChange={setOpen}>
@@ -31,5 +31,3 @@ const MobileNavigation: React.FC<MobileNavigationProps> = ({ open, setOpen }) =>
     </div>
   )
 }
-
-export default MobileNavigation

@@ -2,7 +2,7 @@ import React from 'react'
 import ProjectCard from '@/components/ui/projectCard'
 import { getFavoriteProjects } from '@/lib/projects'
 
-const DesktopProjectCards: React.FC = async () => {
+export default async function DesktopProjectCards() {
   const favoriteProjects = await getFavoriteProjects()
 
   if (favoriteProjects.length === 0) {
@@ -39,5 +39,3 @@ const DesktopProjectCards: React.FC = async () => {
     </div>
   )
 }
-
-export default DesktopProjectCards

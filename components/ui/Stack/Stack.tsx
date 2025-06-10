@@ -95,6 +95,7 @@ export default function Stack({
           const offsetY = cardPosition * 2;
           const randomRotate = randomRotation ? Math.random() * 6 - 3 : 0;
           const isTopCard = index === cards.length - 1;
+          const boxShadow = `0 ${cardPosition * 2 + 4}px ${cardPosition * 4 + 8}px rgba(0, 0, 0, ${0.08 + cardPosition * 0.02}), 0 ${cardPosition + 2}px ${cardPosition * 2 + 4}px rgba(0, 0, 0, 0.04)`;
 
           return (
             <CardRotate
@@ -123,7 +124,7 @@ export default function Stack({
                   width: cardDimensions.width,
                   height: cardDimensions.height,
                   willChange: 'transform',
-                  boxShadow: `0 ${cardPosition * 2 + 4}px ${cardPosition * 4 + 8}px rgba(0, 0, 0, ${0.08 + cardPosition * 0.02}), 0 ${cardPosition + 2}px ${cardPosition * 2 + 4}px rgba(0, 0, 0, 0.04)`
+                  boxShadow: boxShadow
                 }}
               >
                 <ProjectCard 
