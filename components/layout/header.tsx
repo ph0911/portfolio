@@ -1,5 +1,5 @@
 import  ThemeToggle  from '@/components/utility/theme-toggle'
-import { IconLayoutSidebarLeftExpand } from '@tabler/icons-react';
+import { PanelLeft } from 'lucide-react'
 
 import Link from 'next/link';
 import { JSX, SVGProps } from 'react'
@@ -40,7 +40,7 @@ export default function Header() {
         <div className="md:hidden">
           <Button size='sm'
       variant='ghost' className="text-foreground" aria-label="Toggle navigation">
-            <IconLayoutSidebarLeftExpand className="size-5" />
+            <PanelLeft className="size-5" />
           </Button>
         </div>
         <div className="hidden md:block">

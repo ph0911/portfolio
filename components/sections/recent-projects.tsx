@@ -10,7 +10,7 @@ export default async function RecentProjects({ showAllProjectsLink = true }) {
     <section className='pb-14'>
       <div>
         <h2 className='title mb-14'>Featured Work</h2>
-        <div className='mb-10 md:mb-14 '>
+        <div className='mb-10 md:mb-14'>
           {/* Desktop Version */}
           <div className="hidden md:block">
             <DesktopProjectCards />

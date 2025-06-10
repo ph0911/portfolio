@@ -6,7 +6,7 @@ import { PostMetadata } from '@/lib/posts'
 import Posts from '@/components/blog/posts'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
-import { Cross2Icon } from '@radix-ui/react-icons'
+import { X } from 'lucide-react'
 
 export default function PostsWithSearch({ posts }: { posts: PostMetadata[] }) {
   const [query, setQuery] = useState('')
@@ -37,7 +37,7 @@ export default function PostsWithSearch({ posts }: { posts: PostMetadata[] }) {
             className='h-8 px-2 lg:px-3 rounded-full'
           >
             Reset
-            <Cross2Icon className='ml-2 h-4 w-4' />
+            <X className='ml-2 h-4 w-4' />
           </Button>
         )}
       </div>
