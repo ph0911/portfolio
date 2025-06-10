@@ -13,7 +13,7 @@ interface Card {
   content: string
 }
 
-export const AnimatedBadge: React.FC<AnimatedBadgeProps> = ({ children }) => {
+export function AnimatedBadge({ children }: AnimatedBadgeProps) {
   const id = useId()
   
   return (

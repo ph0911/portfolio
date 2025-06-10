@@ -22,12 +22,12 @@ interface MobileProjectCardsProps {
  * - Clean stack-based card management
  * - Loads favorite projects data internally (consistent with DesktopProjectCards)
  */
-const MobileProjectCards: React.FC<MobileProjectCardsProps> = async ({
+export default async function MobileProjectCards({
   sensitivity = 150,
   randomRotation = false,
   sendToBackOnClick = true,
   className = ""
-}) => {
+}: MobileProjectCardsProps) {
   const favoriteProjects = await getFavoriteProjects();
 
   if (!favoriteProjects || favoriteProjects.length === 0) {
@@ -52,6 +52,4 @@ const MobileProjectCards: React.FC<MobileProjectCardsProps> = async ({
       />
     </div>
   );
-};
-
-export default MobileProjectCards;
+}

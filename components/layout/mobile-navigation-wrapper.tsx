@@ -9,7 +9,7 @@ interface MobileNavigationWrapperProps {
   children: React.ReactNode
 }
 
-const MobileNavigationWrapper: React.FC<MobileNavigationWrapperProps> = ({ children }) => {
+export default function MobileNavigationWrapper({ children }: MobileNavigationWrapperProps) {
   const [navOpen, setNavOpen] = useState(false)
   const { isMobile } = useMobileViewportContext()
   
@@ -40,5 +40,3 @@ const MobileNavigationWrapper: React.FC<MobileNavigationWrapperProps> = ({ child
     </div>
   )
 }
-
-export default MobileNavigationWrapper

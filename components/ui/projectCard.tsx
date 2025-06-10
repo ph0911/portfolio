@@ -17,13 +17,13 @@ interface ProjectCardProps {
   enableNavigation?: boolean
 }
 
-const ProjectCard: React.FC<ProjectCardProps> = ({ 
+export default function ProjectCard({ 
   project, 
   isActive = true, 
   className,
   variant = 'default',
   enableNavigation = true
-}) => {
+}: ProjectCardProps) {
   const {
     title,
     image,
@@ -145,5 +145,3 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
     </motion.div>
   )
 }
-
-export default ProjectCard
