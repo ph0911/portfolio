@@ -23,7 +23,7 @@ export default async function DesktopProjectCards() {
           key={project.slug} 
           className={`flex flex-col items-center space-y-3 ${
         index % 3 === 1 && favoriteProjects.length >= 3 ? 
-        "transform scale-105 z-10" : 
+        "transform scale-105 z-[1]" : 
         (index % 3 !== 1 && favoriteProjects.length >= 3 ? 
         "transform scale-95" : "")
           }`}

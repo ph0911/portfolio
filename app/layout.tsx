@@ -95,7 +95,7 @@ export default function RootLayout({
           <MobileNavigationWrapper>
             <main className='grow overflow-hidden'>{children}</main>
           </MobileNavigationWrapper>
-          <FloatingDock items={links} desktopClassName='fixed inset-x-0 bottom-12 mx-auto w-fit' mobileClassName='fixed right-7 bottom-7' />
+          <FloatingDock items={links} desktopClassName='fixed inset-x-0 bottom-12 mx-auto w-fit z-50' mobileClassName='fixed right-7 bottom-7 z-40' />
           <Footer />
         </Providers>
       </body>
