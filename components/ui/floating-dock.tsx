@@ -29,7 +29,12 @@ export const FloatingDock = ({
   desktopClassName?: string;
   mobileClassName?: string;
 }) => {
-  const { isMobile } = useMobileViewportContext();
+  const { isMobile, mounted } = useMobileViewportContext();
+
+  // Prevent hydration mismatch by not rendering until mounted
+  if (!mounted) {
+    return null;
+  }
 
   return (
     <>
