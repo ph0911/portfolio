@@ -25,9 +25,14 @@ const montserrat = Montserrat({ subsets: ['latin'], variable: '--font-sans' })
 // })
 const cormorant = Cormorant_Infant({ weight: '500', subsets: ['latin'], variable: '--font-serif' })
 
-const MobileNavigationWrapper = dynamic(() => import('@/components/layout/mobile-navigation-wrapper'), {
+const MobileNavigationWrapper = dynamic(() => import('@/components/layout/mobile-navigation-sidebar-wrapper'), {
   ssr: false
 })
+
+// Zum Vergleich - alte Implementierung:
+// const MobileNavigationWrapper = dynamic(() => import('@/components/layout/mobile-navigation-wrapper'), {
+//   ssr: false
+// })
 
 export const metadata: Metadata = {
   title: "Pascal Heue",

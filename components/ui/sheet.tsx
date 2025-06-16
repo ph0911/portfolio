@@ -43,36 +43,49 @@ const sheetVariants = cva(
         right:
           "inset-y-0 right-0 h-full w-3/4 border-l data-[state=closed]:slide-out-to-right data-[state=open]:slide-in-from-right sm:max-w-sm",
       },
+      variant: {
+        default: "",
+        sidebar: "!w-12 !bg-background/95 backdrop-blur-sm border-r border-border/50 !shadow-none !h-screen"
+      }
     },
     defaultVariants: {
       side: "right",
+      variant: "default"
     },
   }
 )
 
 interface SheetContentProps
   extends React.ComponentPropsWithoutRef<typeof SheetPrimitive.Content>,
-    VariantProps<typeof sheetVariants> {}
+    VariantProps<typeof sheetVariants> {
+  hideCloseButton?: boolean
+  pushContent?: boolean
+}
 
 const SheetContent = React.forwardRef<
   React.ElementRef<typeof SheetPrimitive.Content>,
   SheetContentProps
->(({ side = "right", className, children, ...props }, ref) => (
-  <SheetPortal>
-    <SheetOverlay />
-    <SheetPrimitive.Content
-      ref={ref}
-      className={cn(sheetVariants({ side }), className)}
-      {...props}
-    >
-      <SheetPrimitive.Close className="absolute right-3 top-7 rounded-sm opacity-70 transition-opacity hover:opacity-100 disabled:pointer-events-none data-[state=open]:bg-secondary">
-        <PanelLeft className="size-6" />
-        <span className="sr-only">Close</span>
-      </SheetPrimitive.Close>
-      {children}
-    </SheetPrimitive.Content>
-  </SheetPortal>
-))
+>(({ side = "right", variant = "default", className, children, hideCloseButton = false, pushContent = false, ...props }, ref) => {
+  
+  return (
+    <SheetPortal>
+      {!pushContent && <SheetOverlay />}
+      <SheetPrimitive.Content
+        ref={ref}
+        className={cn(sheetVariants({ side, variant }), className)}
+        {...props}
+      >
+        {!hideCloseButton && (
+          <SheetPrimitive.Close className="absolute right-3 top-7 rounded-sm opacity-70 transition-opacity hover:opacity-100 disabled:pointer-events-none data-[state=open]:bg-secondary">
+            <PanelLeft className="size-6" />
+            <span className="sr-only">Close</span>
+          </SheetPrimitive.Close>
+        )}
+        {children}
+      </SheetPrimitive.Content>
+    </SheetPortal>
+  )
+})
 SheetContent.displayName = SheetPrimitive.Content.displayName
 
 const SheetHeader = ({
