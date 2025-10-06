@@ -60,7 +60,7 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
 
   return (
     <div 
-      className={`${inModal ? "relative z-[500]" : ""} w-full pb-24`} 
+      className={`${inModal ? "relative z-[500]" : "pb-24"} w-full `} 
       ref={containerRef}
     >
       <div className="max-w-7xl mx-auto">

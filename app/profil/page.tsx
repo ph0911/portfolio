@@ -89,7 +89,7 @@ const dataTimeline = [
 export default function ProfilePage() {
   return (
     <ModalWrapper parentPath="/" isActive>
-      <section className='pb-16 md:pb-24 pt-4 md:pt-32'>
+      <section className='md:pb-24 pt-4 md:pt-32'>
         <div className='container max-w-3xl'>
           <Link
             href='/'

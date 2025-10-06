@@ -143,7 +143,7 @@ export default function ModalWrapper({
             </div>
           ) : (
             <motion.div
-              className="absolute bottom-0 w-full max-h-[85vh] py-4 rounded-t-3xl bg-background shadow-2xl border-t border-gray-300 dark:border-gray-900"
+              className="absolute bottom-0 w-full max-h-[95vh] py-4 rounded-t-3xl bg-background shadow-2xl border-t border-gray-300 dark:border-gray-900"
               style={{ y, opacity }}
               initial={{ y: '100%' }}
               animate={{ y: 0 }}
