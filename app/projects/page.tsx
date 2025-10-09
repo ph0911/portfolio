@@ -1,13 +1,14 @@
-import RecentProjects from '@/components/recent-projects'
+import RecentProjects from '@/components/sections/recent-projects'
 import { getProjects } from '@/lib/projects'
 import Link from 'next/link'
 import { formatDate } from '@/lib/utils'
 import { IconChevronLeft } from '@tabler/icons-react'
 import Image from 'next/image'
+import { ProjectPreload } from '@/components/utility/preload'
 
 export default async function ProjectsPage() {
   const allProjects = await getProjects()
-  const olderProjects = allProjects.slice(4)
+  const olderProjects = allProjects.slice(3)
 
   return (
     <section className='pb-24 pt-32'>
@@ -26,6 +27,7 @@ export default async function ProjectsPage() {
         <ul className='flex flex-col gap-8'>
           {olderProjects.map(project => (
             <li key={project.slug}>
+              <ProjectPreload slug={project.slug}>
               <Link
                 href={`/projects/${project.slug}`}
                 className='flex items-center gap-4'
@@ -53,6 +55,7 @@ export default async function ProjectsPage() {
                   )}
                 </div>
               </Link>
+              </ProjectPreload>
             </li>
           ))}
         </ul>

@@ -18,6 +18,7 @@ export type ProjectMetadata = {
   publishedAt?: string
   slug: string
   tags?: string[]
+  fav?: boolean
 }
 
 export async function getProjectBySlug(slug: string): Promise<Project | null> {
@@ -49,6 +50,23 @@ export async function getProjects(limit?: number): Promise<ProjectMetadata[]> {
   }
 
   return projects
+}
+
+export async function getFavoriteProjects(): Promise<ProjectMetadata[]> {
+  const files = fs.readdirSync(rootDirectory)
+
+  const favoriteProjects = files
+    .map(file => getProjectMetadata(file))
+    .filter(project => project.fav === true)
+    .sort((a, b) => {
+      if (new Date(a.publishedAt ?? '') < new Date(b.publishedAt ?? '')) {
+        return 1
+      } else {
+        return -1
+      }
+    })
+
+  return favoriteProjects
 }
 
 export function getProjectMetadata(filepath: string): ProjectMetadata {

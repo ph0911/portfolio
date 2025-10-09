@@ -83,8 +83,17 @@
     @apply bg-background text-foreground overflow-x-hidden;
   }
 
+  .name-title {
+    @apply font-serif text-3xl md:text-4xl underline decoration-border/75 decoration-1 underline-offset-8 tracking-wide;
+  }
+
+  .name-subtitle {
+    @apply font-sans md:text-xl text-base tracking-wide text-muted-foreground;
+  }
+
+
   .title {
-    @apply font-serif text-3xl font-bold underline decoration-border/75 decoration-2 underline-offset-8;
+    @apply font-serif text-3xl underline decoration-border/75 decoration-1 underline-offset-8 tracking-wide;
   }
 
   .subtitle {
