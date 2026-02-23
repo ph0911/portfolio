@@ -10,6 +10,10 @@ type NewsletterFormInputs = z.infer<typeof NewsletterFormSchema>
 const resend = new Resend(process.env.RESEND_API_KEY)
 
 export async function sendEmail(data: ContactFormInputs) {
+  if (data.website?.trim()) {
+    return { success: false }
+  }
+
   const result = ContactFormSchema.safeParse(data)
 
   if (result.error) {

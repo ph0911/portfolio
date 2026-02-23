@@ -25,7 +25,8 @@ export default function ContactForm() {
     defaultValues: {
       name: '',
       email: '',
-      message: ''
+      message: '',
+      website: ''
     }
   })
 
@@ -54,6 +55,15 @@ export default function ContactForm() {
           noValidate
         >
           <div className='grid grid-cols-1 gap-6 sm:grid-cols-2'>
+            <input
+              type='text'
+              tabIndex={-1}
+              autoComplete='off'
+              aria-hidden='true'
+              className='hidden'
+              {...register('website')}
+            />
+
             {/* Name */}
             <div>
               <Input
@@ -114,7 +124,7 @@ export default function ContactForm() {
           </div>
           <p className='mt-4 text-xs text-muted-foreground'>
             By submitting this form, I agree to the{' '}
-            <Link href='/privacy' className='font-bold'>
+            <Link href='/datenschutz' className='font-bold'>
               privacy&nbsp;policy.
             </Link>
           </p>

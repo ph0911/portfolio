@@ -10,6 +10,8 @@ import ReadingProgress from '@/components/ui/reading-progress'
 import ModalWrapper from '@/components/utility/ModalWrapper'
 
 
+export const dynamicParams = false
+
 export async function generateStaticParams() {
   const posts = await getPosts()
   const slugs = posts.map(post => ({ slug: post.slug }))

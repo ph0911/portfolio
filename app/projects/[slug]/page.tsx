@@ -10,6 +10,8 @@ import ModalWrapper from '@/components/utility/ModalWrapper'
 import { Badge } from '@/components/ui/badge'
 
 
+export const dynamicParams = false
+
 export async function generateStaticParams() {
   const projects = await getProjects()
   const slugs = projects.map(project => ({ slug: project.slug }))
