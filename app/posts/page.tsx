@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
+ 
 import { getPosts } from '@/lib/posts'
 import PostsWithSearch from '@/components/blog/posts-with-search'
 import Link from 'next/link'

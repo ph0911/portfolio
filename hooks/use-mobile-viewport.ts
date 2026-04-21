@@ -1,6 +1,7 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useCallback, useSyncExternalStore } from 'react';
+import { useHydrated } from '@/hooks/use-hydrated';
 
 /**
  * Custom hook to detect if the viewport is mobile based on screen width
@@ -9,22 +10,17 @@ import { useState, useEffect } from 'react';
  */
   
 export function useMobileViewport(breakpoint: number = 768) {
-  const [isMobile, setIsMobile] = useState(false);
-  const [mounted, setMounted] = useState(false);
+  const mounted = useHydrated();
+  const subscribe = useCallback((onStoreChange: () => void) => {
+    window.addEventListener('resize', onStoreChange);
+    return () => window.removeEventListener('resize', onStoreChange);
+  }, []);
+  const getSnapshot = useCallback(
+    () => window.innerWidth < breakpoint,
+    [breakpoint]
+  );
 
-  useEffect(() => {
-    const checkIsMobile = () => {
-      setIsMobile(window.innerWidth < breakpoint);
-    };
-
-    // Initial check
-    checkIsMobile();
-    setMounted(true);
-    
-    // Set up listener for window resize
-    window.addEventListener('resize', checkIsMobile);
-    return () => window.removeEventListener('resize', checkIsMobile);
-  }, [breakpoint]);
+  const isMobile = useSyncExternalStore(subscribe, getSnapshot, () => false);
 
   return { isMobile, mounted };
 }

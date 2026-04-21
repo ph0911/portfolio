@@ -1,14 +1,24 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useMobileViewportContext } from '@/contexts/mobile-viewport-context';
 
-export function useInViewPreload(path: string, options = {}) {
+export function useInViewPreload(
+  path: string,
+  options: IntersectionObserverInit = {}
+) {
   const [ref, setRef] = useState<HTMLElement | null>(null);
   const [isInView, setIsInView] = useState(false);
   const router = useRouter();
   const { isMobile } = useMobileViewportContext();
+  const observerOptions = useMemo(
+    () => ({
+      threshold: 0.1,
+      ...options,
+    }),
+    [options]
+  );
   
   useEffect(() => {
     // Add debug log for mobile state
@@ -32,17 +42,14 @@ export function useInViewPreload(path: string, options = {}) {
           observer.disconnect();
         }
       });
-    }, {
-      threshold: 0.1,
-      ...options
-    });
+    }, observerOptions);
 
     observer.observe(ref);
     
     return () => {
       observer.disconnect();
     };
-  }, [ref, path, router, isMobile]);
+  }, [ref, path, router, isMobile, observerOptions]);
 
   return { ref: setRef, isInView };
 }

@@ -7,7 +7,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next"
 import { Analytics } from "@vercel/analytics/react"
 import Header from '@/components/layout/header'
 import Footer from '@/components/layout/footer'
-import dynamic from 'next/dynamic'
+import MobileNavigationWrapper from '@/components/layout/mobile-navigation-wrapper'
 import { FloatingDock } from '@/components/ui/floating-dock'
 import {
   IconBrandGithub,
@@ -24,10 +24,6 @@ const montserrat = Montserrat({ subsets: ['latin'], variable: '--font-sans' })
 //   variable: '--font-serif'
 // })
 const cormorant = Cormorant_Infant({ weight: '500', subsets: ['latin'], variable: '--font-serif' })
-
-const MobileNavigationWrapper = dynamic(() => import('@/components/layout/mobile-navigation-wrapper'), {
-  ssr: false
-})
 
 export const metadata: Metadata = {
   title: "Pascal Heue",

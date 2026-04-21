@@ -19,8 +19,12 @@ export async function generateStaticParams() {
   return slugs
 }
 
-export default async function Post({ params }: { params: { slug: string } }) {
-  const { slug } = params
+export default async function Post({
+  params
+}: {
+  params: Promise<{ slug: string }>
+}) {
+  const { slug } = await params
   const post = await getPostBySlug(slug)
 
   if (!post) {
@@ -30,8 +34,7 @@ export default async function Post({ params }: { params: { slug: string } }) {
   const { metadata, content } = post
   const { title, image, author, publishedAt, summary } = metadata
 
-  // Content that will be rendered both in modal and normal view
-  const PostContent = () => (
+  const postContent = (
     <>
       {image && (
         <div className='relative mb-6 h-60 md:h-96 w-full overflow-hidden shadow-lg rounded-2xl md:rounded-3xl'>
@@ -87,7 +90,7 @@ export default async function Post({ params }: { params: { slug: string } }) {
             <ReadingProgress />
           </div>
           
-          <PostContent />
+          {postContent}
         </div>
       </section>
     </ModalWrapper>

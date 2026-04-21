@@ -1,17 +1,13 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useHydrated } from '@/hooks/use-hydrated';
 
 export default function ClientOnly({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const [isMounted, setIsMounted] = useState(false);
-
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
+  const isMounted = useHydrated();
 
   if (!isMounted) {
     return null;
