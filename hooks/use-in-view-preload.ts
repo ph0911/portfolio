@@ -4,9 +4,11 @@ import { useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useMobileViewportContext } from '@/contexts/mobile-viewport-context';
 
+const DEFAULT_OBSERVER_OPTIONS: IntersectionObserverInit = {};
+
 export function useInViewPreload(
   path: string,
-  options: IntersectionObserverInit = {}
+  options: IntersectionObserverInit = DEFAULT_OBSERVER_OPTIONS
 ) {
   const [ref, setRef] = useState<HTMLElement | null>(null);
   const [isInView, setIsInView] = useState(false);
