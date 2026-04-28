@@ -21,9 +21,9 @@ export async function generateStaticParams() {
 export default async function Project({
   params
 }: {
-  params: { slug: string }
+  params: Promise<{ slug: string }>
 }) {
-  const { slug } = params
+  const { slug } = await params
   const project = await getProjectBySlug(slug)
   if (!project) {
     notFound()
@@ -31,8 +31,7 @@ export default async function Project({
   const { metadata, content } = project
   const { title, image, author, publishedAt, summary, tags } = metadata
 
-  // Content that will be rendered both in modal and normal view
-  const ProjectContent = () => (
+  const projectContent = (
     <>
       {image && (
         <div className='relative mb-6 h-60 md:h-96 w-full overflow-hidden rounded-2xl md:rounded-3xl'>
@@ -106,7 +105,7 @@ export default async function Project({
             <ReadingProgress />
           </div>
           
-          <ProjectContent />
+          {projectContent}
         </div>
       </section>
     </ModalWrapper>

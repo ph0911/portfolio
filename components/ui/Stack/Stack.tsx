@@ -51,6 +51,10 @@ interface StackProps {
   animationConfig?: { stiffness: number; damping: number };
 }
 
+function getRotationOffset(index: number) {
+  return ((index * 37) % 7) - 3
+}
+
 export default function Stack({
   projectsData,
   randomRotation = false,
@@ -61,7 +65,8 @@ export default function Stack({
   const [cards, setCards] = useState(
     projectsData.map((project, index) => ({ 
       id: index + 1, 
-      project 
+      project,
+      rotationOffset: randomRotation ? getRotationOffset(index) : 0
     }))
   );
 
@@ -93,7 +98,6 @@ export default function Stack({
           const rotationAngle = cardPosition * 3;
           const offsetX = cardPosition * 8;
           const offsetY = cardPosition * 2;
-          const randomRotate = randomRotation ? Math.random() * 6 - 3 : 0;
           const isTopCard = index === cards.length - 1;
           const boxShadow = `0 ${cardPosition * 2 + 4}px ${cardPosition * 4 + 8}px rgba(0, 0, 0, ${0.08 + cardPosition * 0.02}), 0 ${cardPosition + 2}px ${cardPosition * 2 + 4}px rgba(0, 0, 0, 0.04)`;
 
@@ -107,7 +111,7 @@ export default function Stack({
                 className="rounded-3xl overflow-hidden shadow-xl"
                 onClick={() => sendToBackOnClick && sendToBack(card.id)}
                 animate={{
-                  rotateZ: rotationAngle + randomRotate,
+                  rotateZ: rotationAngle + card.rotationOffset,
                   scale: 1 - cardPosition * 0.02,
                   transformOrigin: "center center",
                   x: offsetX,

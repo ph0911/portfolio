@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
+ 
 import Intro from '@/components/sections/intro'
 import React from 'react'
 import RecentPosts from '@/components/sections/recent-posts'

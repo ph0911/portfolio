@@ -25,8 +25,8 @@ export default function ModalWrapper({
   const { isMobile, mounted } = useMobileViewportContext();
   const [isLoading, setIsLoading] = useState(true);
   const [contentReady, setContentReady] = useState(false);
-  const [startTime, setStartTime] = useState<number | null>(null);
   const [showSpinner, setShowSpinner] = useState(false);
+  const startTimeRef = useRef<number | null>(null);
 
   // Make getParentPath memoized with useCallback
   const getParentPath = useCallback(() => {
@@ -46,7 +46,7 @@ export default function ModalWrapper({
 
   useEffect(() => {
     if (isActive) {
-      setStartTime(performance.now());
+      startTimeRef.current = performance.now();
       
       // Start rendering the modal immediately
       // but wait to show content
@@ -65,11 +65,6 @@ export default function ModalWrapper({
         clearTimeout(loadingTimer);
         clearTimeout(spinnerTimer);
       };
-    } else {
-      // Reset states when modal is inactive
-      setIsLoading(true);
-      setShowSpinner(false);
-      setContentReady(false);
     }
   }, [isActive, isLoading]);
 
@@ -85,11 +80,11 @@ export default function ModalWrapper({
 
   // Performance logging
   useEffect(() => {
-    if (!isLoading && startTime !== null) {
+    if (!isLoading && startTimeRef.current !== null) {
       const endTime = performance.now();
-      console.log(`Modal load time: ${endTime - startTime}ms`);
+      console.log(`Modal load time: ${endTime - startTimeRef.current}ms`);
     }
-  }, [isLoading, startTime]);
+  }, [isLoading]);
 
   // Check if we're at the top of the scroll
   const checkScrollPosition = () => {

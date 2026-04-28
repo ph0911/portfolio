@@ -1,5 +1,5 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable prefer-const */
+ 
+ 
 import { JSX } from 'react'
 import { highlight } from 'sugar-high'
 import { MDXRemote, MDXRemoteProps } from 'next-mdx-remote/rsc'
