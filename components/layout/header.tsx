@@ -1,5 +1,5 @@
 import  ThemeToggle  from '@/components/utility/theme-toggle'
-import { PanelLeft } from 'lucide-react'
+import { Menu } from 'lucide-react'
 
 import Link from 'next/link';
 import { JSX, SVGProps } from 'react'
@@ -38,10 +38,7 @@ export default function Header() {
     <header className="fixed inset-x-0 top-0 z-50 bg-background/75 py-6 backdrop-blur-sm">
       <nav className="container flex max-w-3xl items-center justify-between">
         <div className="md:hidden">
-          <Button size='sm'
-      variant='ghost' className="text-foreground" aria-label="Toggle navigation">
-            <PanelLeft className="size-5" />
-          </Button>
+          <ThemeToggle />
         </div>
         <div className="hidden md:block">
           <a key={logo.name} href={logo.href} className='text-foreground'>
@@ -66,8 +63,14 @@ export default function Header() {
             <Link href="mailto:info@pascalheue.dev?subject=Kontakt%20Anfrage%20Website&body=Hey%2C%20">Kontakt</Link>
           </li>
         </ul>
-        <div>
-          <ThemeToggle />
+        <div className="flex items-center gap-1">
+          <Button size='sm' variant='ghost' className="text-foreground md:hidden" aria-label="Toggle navigation">
+            <Menu className="size-5" />
+            <span className="text-xs font-medium">Menü</span>
+          </Button>
+          <div className='hidden md:block'>
+            <ThemeToggle />
+          </div>
         </div>
       </nav>
     </header>
