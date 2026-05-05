@@ -1,11 +1,9 @@
-import  ThemeToggle  from '@/components/utility/theme-toggle'
+import ThemeToggle from '@/components/utility/theme-toggle'
 import { PanelLeft } from 'lucide-react'
 
-import Link from 'next/link';
+import Link from 'next/link'
 import { JSX, SVGProps } from 'react'
-import { Button } from '@/components/ui/button';
-
-
+import { Button } from '@/components/ui/button'
 
 const logo = {
   name: 'Logo',
@@ -31,43 +29,42 @@ const logo = {
   )
 }
 
-
-
 export default function Header() {
   return (
     <header className="fixed inset-x-0 top-0 z-50 bg-background/75 py-6 backdrop-blur-sm">
-      <nav className="container flex max-w-3xl items-center justify-between">
+      <nav className="container relative flex max-w-3xl items-center justify-between">
         <div className="md:hidden">
-          <Button size='sm'
-      variant='ghost' className="text-foreground" aria-label="Toggle navigation">
-            <PanelLeft className="size-5" />
-          </Button>
+          <ThemeToggle />
         </div>
+
         <div className="hidden md:block">
           <a key={logo.name} href={logo.href} className='text-foreground'>
             <span className='sr-only'>{logo.name}</span>
             <logo.icon aria-hidden='true' className='h-8 w-8' />
           </a>
         </div>
-        <div className="md:hidden absolute left-1/2 transform -translate-x-1/2">
+
+        <div className="md:hidden absolute left-1/2 -translate-x-1/2 transform">
           <a key={logo.name} href={logo.href} className='text-foreground'>
             <span className='sr-only'>{logo.name}</span>
             <logo.icon aria-hidden='true' className='h-8 w-8' />
           </a>
         </div>
+
         <ul className="hidden md:flex items-center gap-6 text-sm font-light text-muted-foreground sm:gap-10">
-          <li className="transition-colors hover:text-foreground">
-            <Link href="/projects">Projekte</Link>
-          </li>
-          <li className="transition-colors hover:text-foreground">
-            <Link href="/posts">Blog</Link>
-          </li>
-          <li className="transition-colors hover:text-foreground">
-            <Link href="mailto:info@pascalheue.dev?subject=Kontakt%20Anfrage%20Website&body=Hey%2C%20">Kontakt</Link>
-          </li>
+          <li className="transition-colors hover:text-foreground"><Link href="/projects">Projekte</Link></li>
+          <li className="transition-colors hover:text-foreground"><Link href="/posts">Blog</Link></li>
+          <li className="transition-colors hover:text-foreground"><Link href="mailto:info@pascalheue.dev?subject=Kontakt%20Anfrage%20Website&body=Hey%2C%20">Kontakt</Link></li>
         </ul>
-        <div>
+
+        <div className="hidden md:block">
           <ThemeToggle />
+        </div>
+
+        <div className="md:hidden">
+          <Button size='sm' variant='ghost' className="text-foreground" aria-label="Toggle navigation">
+            <PanelLeft className="size-5" />
+          </Button>
         </div>
       </nav>
     </header>
