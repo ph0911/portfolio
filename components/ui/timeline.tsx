@@ -6,7 +6,6 @@ import {
   motion,
 } from "framer-motion";
 import React, { useEffect, useRef, useState } from "react";
-import { useModalWrapper } from '@/contexts/modal-wrapper-context';
 
 interface TimelineEntry {
   title: string;
@@ -19,11 +18,6 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [height, setHeight] = useState(0);
   const [activeIndex, setActiveIndex] = useState(0); // Default to first item as active
-  
-  // Get modal context, defaulting to false if not provided
-  const modalContext = useModalWrapper();
-  const inModal = modalContext?.isInsideModal ?? false;
-  const isModalActive = modalContext?.isActive ?? false;
 
   // Calculate accurate height based on content
   useEffect(() => {
@@ -33,19 +27,13 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
     }
   }, [ref]);
   
-  // Use different scroll offsets based on modal state
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: inModal 
-      ? ["start start", "end start"] // More aggressive offset for modal
-      : ["start 30%", "end 50%"],    // Original offset for regular page
+    offset: ["start 30%", "end 50%"],
   });
 
-  // Handle scroll animation differently based on modal context
+  // Handle scroll animation based on the timeline's document position
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
-    // Skip animation updates if in an inactive modal
-    if (inModal && !isModalActive) return;
-
     const threshold = 1 / data.length;
     const centeredIndex = Math.floor((latest + threshold / 2) / threshold);
     const newIndex = Math.min(centeredIndex, data.length - 1);
@@ -60,7 +48,7 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
 
   return (
     <div 
-      className={`${inModal ? "relative z-[500]" : "pb-24"} w-full `} 
+      className="relative w-full pb-24"
       ref={containerRef}
     >
       <div className="max-w-7xl mx-auto">
@@ -72,16 +60,12 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
           style={{
             height: `${height}px`,
           }}
-          className={`absolute left-1 top-0 overflow-hidden w-[1px] ${
-            inModal 
-              ? "bg-neutral-200 dark:bg-neutral-700" 
-              : "bg-[linear-gradient(to_bottom,var(--tw-gradient-stops))] from-transparent from-[5%] via-neutral-200 dark:via-neutral-700 to-transparent to-[95%] [mask-image:linear-gradient(to_bottom,transparent_5%,black_15%,black_85%,transparent_95%)]"
-          } z-0`}
+          className="absolute left-1 top-0 z-0 w-[1px] overflow-hidden bg-[linear-gradient(to_bottom,var(--tw-gradient-stops))] from-transparent from-[5%] via-neutral-200 to-transparent to-[95%] [mask-image:linear-gradient(to_bottom,transparent_5%,black_15%,black_85%,transparent_95%)] dark:via-neutral-700"
         >
           <motion.div
             style={{ 
               height: heightTransform, 
-              opacity: inModal ? 1 : opacityTransform 
+              opacity: opacityTransform 
             }}
             className="absolute inset-x-0 top-0 w-[1px] bg-orange-400"
           />
@@ -93,7 +77,7 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
             className="flex mb-12"
             initial={{ opacity: 0.4 }}
             animate={{ 
-              opacity: inModal ? 1 : (activeIndex === index ? 1 : 0.4),
+              opacity: activeIndex === index ? 1 : 0.4,
               scale: 1
             }}
             transition={{ duration: 0.5 }}
@@ -103,8 +87,8 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
               <motion.div 
                 className="h-2 w-2 absolute left-0 top-2 rounded-full bg-black dark:bg-white z-20"
                 animate={{ 
-                  scale: inModal ? 1 : (activeIndex === index ? 1.5 : 1),
-                  opacity: inModal ? 1 : (activeIndex === index ? 1 : 0.5)
+                  scale: activeIndex === index ? 1.5 : 1,
+                  opacity: activeIndex === index ? 1 : 0.5
                 }}
                 transition={{ duration: 0.3 }}
               />
@@ -121,8 +105,8 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
               <motion.div 
                 initial={{ y: 20, opacity: 0 }}
                 animate={{ 
-                  y: inModal ? 0 : (activeIndex === index ? 0 : 10),
-                  opacity: inModal ? 0.9 : (activeIndex === index ? 1 : 0.7)
+                  y: activeIndex === index ? 0 : 10,
+                  opacity: activeIndex === index ? 1 : 0.7
                 }}
                 transition={{ duration: 0.4 }}
                 className="prose-sm md:prose-base dark:prose-invert"
