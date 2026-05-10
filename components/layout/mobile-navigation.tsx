@@ -35,7 +35,7 @@ export default function MobileNavigation({ open, setOpen }: MobileNavigationProp
       <Sheet open={open} onOpenChange={setOpen}>
         <SheetContent
           side="left"
-          className="w-[min(84vw,21rem)] overflow-hidden border-r border-foreground/10 bg-background/90 px-6 pb-7 pt-8 shadow-2xl backdrop-blur-xl dark:border-white/10 [&>button]:right-6 [&>button]:top-7 [&>button]:rounded-full [&>button]:border [&>button]:border-foreground/10 [&>button]:bg-background/80 [&>button]:p-2 [&>button]:opacity-100 [&>button]:shadow-sm"
+          className="w-[min(84vw,21rem)] overflow-x-hidden overflow-y-auto border-r border-foreground/10 bg-background/90 px-6 pb-7 pt-8 shadow-2xl backdrop-blur-xl dark:border-white/10 [&>button]:right-6 [&>button]:top-7 [&>button]:rounded-full [&>button]:border [&>button]:border-foreground/10 [&>button]:bg-background/80 [&>button]:p-2 [&>button]:opacity-100 [&>button]:shadow-sm"
         >
           <div className="flex h-full min-w-0 flex-col">
             <div className="pr-16">
