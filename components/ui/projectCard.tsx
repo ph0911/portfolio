@@ -139,7 +139,7 @@ export default function ProjectCard({
         damping: 25,
       }}
     >
-      <Link href={`/projects/${slug}`} className="block w-full h-full">
+      <Link href={`/projects/${slug}`} className="relative block w-full h-full">
         {cardContent}
       </Link>
     </motion.div>

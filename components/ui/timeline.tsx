@@ -1,7 +1,7 @@
 "use client";
 import {
   useMotionValueEvent,
-  useScroll,
+  useMotionValue,
   useTransform,
   motion,
 } from "framer-motion";
@@ -18,6 +18,7 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [height, setHeight] = useState(0);
   const [activeIndex, setActiveIndex] = useState(0); // Default to first item as active
+  const scrollYProgress = useMotionValue(0);
 
   // Calculate accurate height based on content
   useEffect(() => {
@@ -26,11 +27,30 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
       setHeight(rect.height);
     }
   }, [ref]);
-  
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start 30%", "end 50%"],
-  });
+
+  useEffect(() => {
+    const updateProgress = () => {
+      if (!containerRef.current) return;
+
+      const rect = containerRef.current.getBoundingClientRect();
+      const viewportHeight = window.innerHeight;
+      const start = rect.top - viewportHeight * 0.3;
+      const end = rect.bottom - viewportHeight * 0.5;
+      const distance = end - start;
+      const progress = distance === 0 ? 0 : -start / distance;
+
+      scrollYProgress.set(Math.min(Math.max(progress, 0), 1));
+    };
+
+    updateProgress();
+    window.addEventListener("scroll", updateProgress, { passive: true });
+    window.addEventListener("resize", updateProgress);
+
+    return () => {
+      window.removeEventListener("scroll", updateProgress);
+      window.removeEventListener("resize", updateProgress);
+    };
+  }, [scrollYProgress]);
 
   // Handle scroll animation based on the timeline's document position
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
