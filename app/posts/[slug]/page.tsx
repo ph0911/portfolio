@@ -5,9 +5,7 @@ import { ChevronLeft, User, Calendar } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
-import React from 'react'
 import ReadingProgress from '@/components/ui/reading-progress'
-import ModalWrapper from '@/components/utility/ModalWrapper'
 
 
 export const dynamicParams = false
@@ -44,6 +42,7 @@ export default async function Post({
             className='object-cover'
             fill
             priority={true}
+            sizes="(max-width: 768px) 100vw, 768px"
           />
         </div>
       )}
@@ -76,23 +75,21 @@ export default async function Post({
   )
 
   return (
-    <ModalWrapper parentPath="/posts" isActive={true}>
-      <section className='pb-16 md:pb-24 pt-4 md:pt-32'>
-        <div className='container max-w-3xl'>
-          <Link
-            href='/posts'
-            className='mb-8 md:inline-flex hidden items-center gap-2 text-sm font-light text-muted-foreground transition-colors hover:text-foreground'
-          >
-            <ChevronLeft className='h-5 w-5' />
-            <span>Blog</span>
-          </Link>
-          <div className="hidden md:block">
-            <ReadingProgress />
-          </div>
-          
-          {postContent}
+    <section className='pb-16 pt-28 md:pb-24 md:pt-32'>
+      <div className='container max-w-3xl'>
+        <Link
+          href='/posts'
+          className='mb-8 inline-flex items-center gap-2 text-sm font-light text-muted-foreground transition-colors hover:text-foreground'
+        >
+          <ChevronLeft className='h-5 w-5' />
+          <span>Blog</span>
+        </Link>
+        <div className="hidden md:block">
+          <ReadingProgress />
         </div>
-      </section>
-    </ModalWrapper>
+        
+        {postContent}
+      </div>
+    </section>
   )
 }

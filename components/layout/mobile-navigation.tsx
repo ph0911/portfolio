@@ -39,7 +39,7 @@ export default function MobileNavigation({ open, setOpen }: MobileNavigationProp
         >
           <div className="flex h-full min-w-0 flex-col">
             <div className="pr-16">
-              <SheetTitle className="font-serif text-5xl font-medium leading-none tracking-normal">
+              <SheetTitle className="font-serif text-3xl font-medium leading-none tracking-wide">
                 Wohin?
               </SheetTitle>
               <SheetDescription className="sr-only">

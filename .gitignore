@@ -6,6 +6,7 @@
 
 # testing
 /coverage
+/output/
 
 # next.js
 /.next/
@@ -16,6 +17,7 @@
 
 # misc
 .DS_Store
+**/.DS_Store
 *.pem
 
 # debug
