@@ -1,91 +1,49 @@
-# Pascal Heue Portfolio
+# Pascal Heue · Living Dev Space
 
-Ein minimalistisches, responsives Portfolio mit Next.js, MDX und TailwindCSS, das meine Projekte und Blogbeiträge präsentiert.
+Die zweite Version meines Portfolios ist kein statischer Bewerbungskatalog,
+sondern ein öffentlicher Arbeitsraum: ausgewählte Produkte, kurze Fortschritte
+und nachvollziehbare Entscheidungen. Der berufliche Backbone bleibt über About
+und Resume erhalten.
 
-## Überblick
+## Prinzipien
 
-Dieses Portfolio wurde mit modernen Technologien entwickelt und bietet eine benutzerfreundliche Oberfläche mit:
-
-- Dynamischen Projektübersichten und detaillierten Projektseiten
-- Blogbereich für Artikel zu Entwicklungsthemen
-- Responsive Design für alle Geräte (Mobile-First Ansatz)
-- Light- und Dark-Mode
-- Animierte UI-Elemente für ein verbessertes Benutzererlebnis
-- Optimierte Performance durch Next.js
-
-## Tech Stack
-
-- **Next.js**: React-Framework mit SSR und SSG Unterstützung
-- **MDX**: Ermöglicht die Nutzung von React-Komponenten in Markdown-Dateien
-- **TailwindCSS**: Utility-first CSS-Framework für flexibles Styling
-- **shadcn/ui**: Anpassbare UI-Komponenten-Bibliothek
-- **Aceternity UI**: Dynamische UI-Komponenten und Animationen
-- **TypeScript**: Typsicherheit für robuste Codestruktur
-
-## Features
-
-- **Dynamischer Content**: Blog- und Projektinhalte werden aus MDX-Dateien generiert
-- **Modales Routing**: Verbesserte Nutzererfahrung durch Modal-basierte Navigation
-- **Preloading**: Strategisches Vorladen von Inhalten für schnellere Navigation
-- **Lesemarker**: Visuelle Anzeige des Lesefortschritts in Artikeln
-- **Kontaktformular**: Einfache Kontaktmöglichkeit
-- **Animierte UI-Elemente**: Bento-Grid, Flip Words, Timeline und mehr
-
-## Projektstruktur
-
-```
-app/              # Next.js App-Router Dateien und Seiten
-components/       # React-Komponenten
-content/          # MDX-Dateien für Projekte und Blogbeiträge
-contexts/         # React Context-Provider
-hooks/            # Custom React-Hooks
-lib/              # Hilfsfunktionen und Utilities
-public/           # Statische Assets wie Bilder
-```
+- **Mobile first:** klare Informationshierarchie, native Navigation und große
+  Interaktionsflächen ohne clientseitiges Menü-Framework.
+- **Content im Alltag:** Dev-Log-Einträge entstehen mobil als GitHub Issue und
+  werden erst nach einem manuellen Publish-Label veröffentlicht.
+- **Statisch und schnell:** Projekte und Log werden beim Build aus validiertem
+  MDX erzeugt. Nur der Druck-Button im Resume benötigt Client-JavaScript.
+- **Privacy by default:** keine Besucheranalyse, keine Marketing-Cookies, kein
+  Kontaktformular und keine eingebetteten Social-Media-Inhalte.
+- **Ohne laufende Zusatzkosten:** Git, GitHub Actions und das vorhandene
+  Vercel-Hosting bilden den gesamten Publishing-Weg.
 
 ## Lokale Entwicklung
 
-Installiere die Abhängigkeiten:
-
 ```bash
-npm install
-# oder
-yarn install
-# oder
-pnpm install
-```
-
-Starte den Entwicklungsserver:
-
-```bash
+npm ci
 npm run dev
-# oder
-yarn dev
-# oder
-pnpm dev
 ```
 
-Öffne [http://localhost:3000](http://localhost:3000) im Browser, um das Ergebnis zu sehen.
+Die vollständige Qualitätsprüfung umfasst Lint, TypeScript, Content- und
+Security-Tests, Production-Build und Bundle-Budgets:
 
-## Deployment
+```bash
+npm run check
+```
 
-Das Projekt ist für das Deployment auf Vercel optimiert. Es kann mit wenigen Klicks über die [Vercel Platform](https://vercel.com) deployt werden.
+## Struktur
 
-Verbinde dein GitHub-Repository mit Vercel für automatisierte Deployments bei jedem Push:
+```text
+app/                  Seiten, Feeds und SEO-Endpunkte
+components/           fokussierte Server- und UI-Komponenten
+content/projects/     kuratierte Projekt-Cases
+content/log/          kurze, chronologische Dev-Log-Einträge
+lib/content/          Zod-Schemas und Content-Selektoren
+scripts/dev-log/      sichere Issue-zu-MDX-Pipeline
+tests/                Content-, Publishing- und Privacy-Tests
+```
 
-1. Importiere das Repository auf Vercel
-2. Vercel erkennt automatisch die Next.js-Konfiguration
-3. Das Projekt wird gebaut und deployed
-
-## Performance-Optimierungen
-
-Das Projekt enthält mehrere Optimierungen für eine bessere Benutzererfahrung:
-
-- Preload-Strategien für wichtige Seiten und Inhalte
-- Optimierte Bildladezeiten mit next/image
-- Modale Navigation mit verbesserten Übergangsanimationen
-- Code-Splitting und dynamisches Laden von Komponenten
-
-## Lizenz
-
-© Pascal Heue. Alle Rechte vorbehalten.
+Das technische Modell ist in [`docs/architecture.md`](docs/architecture.md)
+beschrieben. Der mobile Publishing-Ablauf steht in
+[`docs/publishing.md`](docs/publishing.md).

@@ -1,36 +1,21 @@
-import Link from 'next/link'
-import { ArrowLeft } from 'lucide-react'
+import Link from "next/link"
 
-export default function NotFound() {
+export default function NotFoundPage() {
   return (
-    <section className='pb-24 pt-40'>
-      <div className='min-h-full px-4 sm:px-6 sm:py-24 md:grid md:place-items-center lg:px-8'>
-        <div className='mx-auto max-w-max'>
-          <main className='sm:flex'>
-            <p className='text-4xl font-bold tracking-tight text-muted-foreground sm:text-5xl'>
-              404
-            </p>
-            <div className='sm:ml-6'>
-              <div className='sm:border-l sm:border-gray-200 sm:pl-6'>
-                <h1 className='text-3xl font-bold tracking-tight sm:text-5xl'>
-                  Seite nicht gefunden
-                </h1>
-                <p className='mt-1 text-base text-muted-foreground'>
-                  Bitte überprüfe die Adresse und versuche es erneut.
-                </p>
-              </div>
-              <div className='mt-10 flex space-x-3 sm:border-l sm:border-transparent sm:pl-6'>
-                <Link
-                  href='/'
-                  className='inline-flex items-center gap-3 text-muted-foreground transition-colors hover:text-foreground'
-                >
-                  <ArrowLeft className='h-5 w-5' />
-                  <span>Zurück zur Startseite</span>
-                </Link>
-              </div>
-            </div>
-          </main>
-        </div>
+    <section className="site-container flex min-h-[65vh] items-center py-20">
+      <div className="max-w-2xl">
+        <p className="meta text-accent">404 · Nicht gefunden</p>
+        <h1 className="section-title mt-5">Diese Spur endet hier.</h1>
+        <p className="mt-6 text-lg leading-relaxed text-muted-foreground">
+          Die angeforderte Seite existiert nicht oder ist in den neuen Living
+          Dev Space umgezogen.
+        </p>
+        <Link
+          className="underlined-link mt-8 inline-flex min-h-11 items-center gap-4 text-accent"
+          href="/"
+        >
+          Zur Startseite <span aria-hidden="true">→</span>
+        </Link>
       </div>
     </section>
   )

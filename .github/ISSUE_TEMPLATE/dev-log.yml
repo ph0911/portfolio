@@ -1,0 +1,81 @@
+name: Dev-Log-Eintrag
+description:
+  Einen Fortschritt unterwegs erfassen und später bewusst veröffentlichen.
+title: "[Dev Log] "
+labels:
+  - content:inbox
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Kurz festhalten, später veröffentlichen: Fülle die Felder aus und erstelle das Issue.
+        Veröffentlicht wird erst, wenn du das Label `content:publish` hinzufügst.
+  - type: dropdown
+    id: type
+    attributes:
+      label: Type
+      description: Was für ein Update ist das?
+      options:
+        - Update
+        - Decision
+        - Learning
+        - Release
+        - Experiment
+    validations:
+      required: true
+  - type: dropdown
+    id: project
+    attributes:
+      label: Project
+      description: Wo gehört das Update hin?
+      options:
+        - Evo iOS
+        - Evo Web
+        - Nomi
+        - Headroom
+        - Portfolio
+        - Other
+    validations:
+      required: true
+  - type: input
+    id: title
+    attributes:
+      label: Title
+      description: Eine kurze, konkrete Überschrift.
+      placeholder: "Beispiel: Timeline-Sync robuster gemacht"
+    validations:
+      required: true
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+      description: Die Kernaussage in ein bis zwei Sätzen.
+      placeholder: Was hat sich verändert und warum ist das relevant?
+    validations:
+      required: true
+  - type: textarea
+    id: details
+    attributes:
+      label: Details
+      description:
+        Kontext, Fortschritt und Entscheidungen. Einfaches Markdown ist möglich.
+      placeholder: |
+        - Ausgangslage
+        - Entscheidung
+        - Nächster Schritt
+    validations:
+      required: true
+  - type: input
+    id: tags
+    attributes:
+      label: Tags
+      description: Kommagetrennt, maximal acht.
+      placeholder: swift, local-first, architecture
+    validations:
+      required: true
+  - type: input
+    id: link
+    attributes:
+      label: Link
+      description: Optionaler öffentlicher Link mit http:// oder https://.
+      placeholder: https://github.com/...
