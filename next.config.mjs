@@ -4,6 +4,15 @@ import { fileURLToPath } from "node:url"
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 
+const legacyProjectReplacements = {
+  "minimalistisches-portfolio": "portfolio-v1",
+  "pinder-cases-webseite": "pinder-digital-brand",
+  "pinder-elektrotechnik-webseite": "pinder-digital-brand",
+  "pinder-gmbh-corporate-design": "pinder-digital-brand",
+  "pinder-gmbh-webseite": "pinder-digital-brand",
+  "pinder-veranstaltungstechnik-webseite": "pinder-digital-brand",
+}
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   turbopack: {
@@ -11,14 +20,21 @@ const nextConfig = {
   },
   async redirects() {
     return [
+      ...Object.entries(legacyProjectReplacements).map(
+        ([legacySlug, currentSlug]) => ({
+          source: `/projects/${legacySlug}`,
+          destination: `/work/${currentSlug}`,
+          permanent: true,
+        }),
+      ),
       {
         source: "/projects/:slug",
-        destination: "/work/:slug",
+        destination: "/work",
         permanent: true,
       },
       {
         source: "/posts/:slug",
-        destination: "/log/:slug",
+        destination: "/log",
         permanent: true,
       },
       {
