@@ -19,8 +19,9 @@ GitHub Issue Form
 ```
 
 Das Entfernen von `content:publish` entfernt ausschließlich den aus diesem Issue
-erzeugten Eintrag. Dateien werden über `sourceIssue` zugeordnet; der Prozess ist
-idempotent.
+erzeugten Eintrag. Dateien werden über `sourceIssue` und einen expliziten
+Generator-Marker im Frontmatter zugeordnet; der Prozess ist idempotent und
+beansprucht keine handgeschriebenen Dateien.
 
 ## Laufzeitgrenzen
 

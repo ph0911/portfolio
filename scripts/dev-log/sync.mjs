@@ -6,9 +6,10 @@ import {
   unlink,
   writeFile,
 } from "node:fs/promises"
+import matter from "gray-matter"
 import path from "node:path"
 import { parseIssueForm, validateIssueFields } from "./parser.mjs"
-import { renderDevLog } from "./render.mjs"
+import { DEV_LOG_GENERATOR, renderDevLog } from "./render.mjs"
 import { validateHttpUrl } from "./sanitize.mjs"
 
 const PUBLISH_LABEL = "content:publish"
@@ -53,6 +54,17 @@ function safeTarget(logDirectory, filename) {
   return target
 }
 
+function isGeneratedForIssue(source, issueNumber) {
+  const { data } = matter(source)
+  if (data.generatedBy !== DEV_LOG_GENERATOR) return false
+
+  const sourceIssue = data.sourceIssue
+  if (typeof sourceIssue !== "string" && typeof sourceIssue !== "number") {
+    return false
+  }
+  return String(sourceIssue) === String(issueNumber)
+}
+
 async function findSourceFile(logDirectory, issueNumber) {
   let entries
   try {
@@ -67,13 +79,7 @@ async function findSourceFile(logDirectory, issueNumber) {
     if (!entry.isFile() || !entry.name.endsWith(".mdx")) continue
     const file = safeTarget(logDirectory, entry.name)
     const source = await readFile(file, "utf8")
-    if (
-      new RegExp(`^sourceIssue:\\s*["']?${issueNumber}["']?\\s*$`, "m").test(
-        source,
-      )
-    ) {
-      matches.push(file)
-    }
+    if (isGeneratedForIssue(source, issueNumber)) matches.push(file)
   }
   if (matches.length > 1)
     throw new Error(`Mehrere Dev-Logs referenzieren Issue #${issueNumber}.`)

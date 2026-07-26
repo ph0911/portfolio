@@ -61,6 +61,7 @@ export const logEntrySchema = z
     publishedAt: z.iso.date(),
     projectId: slugSchema.optional(),
     tags: z.array(nonEmptyText),
+    generatedBy: nonEmptyText.optional(),
     sourceIssue: nonEmptyText.optional(),
     sourceUrl: z.url().optional(),
     schemaVersion: z.literal(1),

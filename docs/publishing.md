@@ -17,7 +17,10 @@ kostenpflichtiger Dienst notwendig.
 
 Änderungen an einem bereits veröffentlichten Issue werden erneut synchronisiert,
 solange `content:publish` gesetzt ist. Wird dieses Label entfernt, löscht die
-Action ausschließlich den zugehörigen generierten Dev-Log-Eintrag.
+Action ausschließlich den zugehörigen generierten Dev-Log-Eintrag. Die Zuordnung
+erfordert sowohl `sourceIssue` als auch den expliziten
+`generatedBy: "github-issue-sync-v1"`-Marker im Frontmatter; gleichlautender
+Text in handgeschriebenen Einträgen wird nie als Workflow-Eigentum behandelt.
 
 ## Labels und Berechtigungen
 
@@ -31,9 +34,8 @@ Action ausschließlich den zugehörigen generierten Dev-Log-Eintrag.
   Publish-Job erhält Schreibrechte für Repository-Inhalte und Issues; sein Token
   steht nur den Push- und GitHub-CLI-Schritten zur Verfügung.
 
-Die beiden Labels müssen vor dem Rollout einmalig im Repository angelegt werden.
-Danach kann der Workflow zunächst mit einem Test-Issue geprüft und anschließend
-regulär genutzt werden.
+Die beiden Labels sind im Repository angelegt. Der Workflow kann nach dem Merge
+zunächst mit einem Test-Issue geprüft und anschließend regulär genutzt werden.
 
 ## Validierung und Fehlerverhalten
 

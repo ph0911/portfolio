@@ -1,5 +1,5 @@
 import assert from "node:assert/strict"
-import { mkdtemp, readFile, readdir } from "node:fs/promises"
+import { mkdir, mkdtemp, readFile, readdir, writeFile } from "node:fs/promises"
 import os from "node:os"
 import path from "node:path"
 import test from "node:test"
@@ -22,6 +22,7 @@ test("publishes a valid issue form deterministically", async t => {
 
   assert.equal(result.action, "created")
   assert.match(source, /^schemaVersion: 1$/m)
+  assert.match(source, /^generatedBy: "github-issue-sync-v1"$/m)
   assert.match(source, /^sourceIssue: "42"$/m)
   assert.match(
     source,
@@ -112,6 +113,45 @@ test("removing content:publish safely unpublishes by sourceIssue", async t => {
 
   assert.equal(result.action, "removed")
   assert.deepEqual(await readdir(logDirectory), [])
+})
+
+test("never claims hand-authored content with a matching sourceIssue", async t => {
+  const logDirectory = await testLogDirectory(t)
+  const manualPath = path.join(logDirectory, "manual-note.mdx")
+  const manualSource = `---
+schemaVersion: 1
+title: "Manueller Eintrag"
+sourceIssue: "42"
+---
+
+Dieser Eintrag bleibt erhalten.
+
+sourceIssue: "42"
+`
+
+  await mkdir(logDirectory, { recursive: true })
+  await writeFile(manualPath, manualSource, "utf8")
+  const created = await syncDevLog(issueEvent(), { logDirectory })
+
+  assert.equal(created.action, "created")
+  assert.deepEqual((await readdir(logDirectory)).sort(), [
+    "2026-07-26-issue-42.mdx",
+    "manual-note.mdx",
+  ])
+  assert.equal(await readFile(manualPath, "utf8"), manualSource)
+
+  const removed = await syncDevLog(
+    issueEvent({
+      action: "unlabeled",
+      label: { name: "content:publish" },
+      issue: { labels: [{ name: "content:inbox" }] },
+    }),
+    { logDirectory },
+  )
+
+  assert.equal(removed.action, "removed")
+  assert.deepEqual(await readdir(logDirectory), ["manual-note.mdx"])
+  assert.equal(await readFile(manualPath, "utf8"), manualSource)
 })
 
 test("ignores inbox and unrelated label events", async t => {

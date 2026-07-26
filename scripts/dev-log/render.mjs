@@ -6,10 +6,13 @@ function yamlList(values) {
   return `[${values.map(yamlString).join(", ")}]`
 }
 
+export const DEV_LOG_GENERATOR = "github-issue-sync-v1"
+
 export function renderDevLog({ issue, fields, publishedAt }) {
   const frontmatter = [
     "---",
     "schemaVersion: 1",
+    `generatedBy: ${yamlString(DEV_LOG_GENERATOR)}`,
     `title: ${yamlString(fields.title)}`,
     `summary: ${yamlString(fields.summary)}`,
     `publishedAt: ${yamlString(publishedAt)}`,
