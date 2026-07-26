@@ -1,99 +1,90 @@
-import type { Metadata } from 'next'
-import { Montserrat, Cormorant_Infant } from 'next/font/google'
-import { cn } from '@/lib/utils'
-import './globals.css'
-import Providers from '@/components/utility/providers'
-import { SpeedInsights } from "@vercel/speed-insights/next"
-import { Analytics } from "@vercel/analytics/react"
-import Header from '@/components/layout/header'
-import Footer from '@/components/layout/footer'
-import MobileNavigationWrapper from '@/components/layout/mobile-navigation-wrapper'
-import { FloatingDock } from '@/components/ui/floating-dock'
-import {
-  IconBrandGithub,
-  IconBrandXing,
-  IconBrandLinkedin,
-  IconHome,
-  IconMail,
-} from "@tabler/icons-react";
+import type { Metadata } from "next"
+import localFont from "next/font/local"
 
-const montserrat = Montserrat({ subsets: ['latin'], variable: '--font-sans' })
-// const outfit = Outfit({
-//   weight: '200',
-//   subsets: ['latin'],
-//   variable: '--font-serif'
-// })
-const cormorant = Cormorant_Infant({ weight: '500', subsets: ['latin'], variable: '--font-serif' })
+import { SiteFooter } from "@/components/site-footer"
+import { SiteHeader } from "@/components/site-header"
+import { cn } from "@/lib/utils"
+
+import "./globals.css"
+
+const geistSans = localFont({
+  display: "swap",
+  src: "./fonts/GeistVF.woff",
+  variable: "--font-geist-sans",
+})
+
+const geistMono = localFont({
+  display: "swap",
+  src: "./fonts/GeistMonoVF.woff",
+  variable: "--font-geist-mono",
+})
 
 export const metadata: Metadata = {
-  title: "Pascal Heue",
-  description: 'Portfolio Webseite von Pascal Heue'
+  metadataBase: new URL("https://www.pascalheue.dev"),
+  title: {
+    default: "Pascal Heue – Software für echte Alltage",
+    template: "%s – Pascal Heue",
+  },
+  description:
+    "Pascal Heue entwickelt ruhige, verlässliche Software an der Schnittstelle von Produktdesign, nativer Entwicklung und local-first Architektur.",
+  authors: [{ name: "Pascal Heue", url: "/" }],
+  creator: "Pascal Heue",
+  keywords: [
+    "Softwareentwicklung",
+    "Produktdesign",
+    "iOS",
+    "Webentwicklung",
+    "Local-first",
+  ],
+  alternates: {
+    types: {
+      "application/rss+xml": "/feed.xml",
+      "application/feed+json": "/feed.json",
+    },
+  },
+  openGraph: {
+    type: "website",
+    locale: "de_DE",
+    siteName: "Pascal Heue",
+    title: "Pascal Heue – Software für echte Alltage",
+    description:
+      "Projekte, Fortschritte und Entscheidungen aus Produktdesign, nativer Entwicklung und local-first Architektur.",
+    url: "/",
+  },
+  twitter: {
+    card: "summary",
+    title: "Pascal Heue – Software für echte Alltage",
+    description:
+      "Projekte, Fortschritte und Entscheidungen aus Produktdesign, nativer Entwicklung und local-first Architektur.",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 }
 
-const links = [
-  {
-    title: "Home",
-    icon: (
-      <IconHome className="h-full w-full text-neutral-500 dark:text-neutral-300" />
-    ),
-    href: "/",
-  },
-  {
-    title: "Mail",
-    icon: (
-      <IconMail className="h-full w-full text-neutral-500 dark:text-neutral-300" />
-    ),
-    href: "mailto:info@pascalheue.dev?subject=Kontakt%20Anfrage%20Website&body=Hey%2C%20",
-  },
-  {
-    title: "LinkedIn",
-    icon: (
-      <IconBrandLinkedin className="h-full w-full text-neutral-500 dark:text-neutral-300" />
-    ),
-    href: "https://www.linkedin.com/in/pascal-heue-557305232",
-  },
-
-  {
-    title: "Xing",
-    icon: (
-      <IconBrandXing className="h-full w-full text-neutral-500 dark:text-neutral-300" />
-    ),
-    href: "https://www.xing.com/profile/Pascal_Heue",
-  },
-  {
-    title: "GitHub",
-    icon: (
-      <IconBrandGithub className="h-full w-full text-neutral-500 dark:text-neutral-300" />
-    ),
-    href: "https://github.com/ph0911",
-  },
-];
-
 export default function RootLayout({
-  children
+  children,
 }: Readonly<{
   children: React.ReactNode
 }>) {
   return (
-    <html lang='en' suppressHydrationWarning>
+    <html data-scroll-behavior="smooth" lang="de">
       <body
         className={cn(
-          'flex min-h-screen flex-col font-sans antialiased',
-          // outfit.variable, // commented out Outfit variant
-          montserrat.variable,
-          cormorant.variable
+          geistSans.variable,
+          geistMono.variable,
+          "flex min-h-screen flex-col bg-background font-sans text-foreground antialiased",
         )}
       >
-        <SpeedInsights />
-        <Analytics/>
-        <Providers>
-          <Header />
-          <MobileNavigationWrapper>
-            <main className='grow overflow-hidden'>{children}</main>
-          </MobileNavigationWrapper>
-          <FloatingDock items={links} desktopClassName='fixed inset-x-0 bottom-12 mx-auto w-fit z-50' mobileClassName='fixed right-7 bottom-7 z-40' />
-          <Footer />
-        </Providers>
+        <a className="skip-link" href="#content">
+          Zum Inhalt springen
+        </a>
+        <SiteHeader />
+        <main className="grow" id="content">
+          {children}
+        </main>
+        <SiteFooter />
       </body>
     </html>
   )

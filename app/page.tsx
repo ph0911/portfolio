@@ -1,19 +1,28 @@
- 
-import Intro from '@/components/sections/intro'
-import React from 'react'
-import RecentPosts from '@/components/sections/recent-posts'
-import RecentProjects from '@/components/sections/recent-projects'
-import SkillsSection from '@/components/sections/skills-section'
+import { AboutSection } from "@/components/home/about-section"
+import { FocusSection } from "@/components/home/focus-section"
+import { Hero } from "@/components/home/hero"
+import { LogSection } from "@/components/home/log-section"
+import { WorkSection } from "@/components/home/work-section"
+import {
+  getFeaturedProjects,
+  getProjects,
+  getRecentLogEntries,
+} from "@/lib/content"
 
-export default function Home() {
+export default function HomePage() {
+  const projects = getProjects()
+  const featuredProjects = getFeaturedProjects()
+  const recentEntries = getRecentLogEntries(4)
+  const focusProject =
+    projects.find(project => project.slug === "evo-ios") ?? projects[0]
+
   return (
-    <section className='pt-24 pb-16'>
-      <div className='container max-w-3xl'>
-        <Intro />
-        <SkillsSection />
-        <RecentPosts />
-        <RecentProjects />
-      </div>
-    </section>
+    <>
+      <Hero />
+      {focusProject ? <FocusSection project={focusProject} /> : null}
+      <WorkSection projects={featuredProjects} />
+      <LogSection entries={recentEntries} projects={projects} />
+      <AboutSection />
+    </>
   )
 }
